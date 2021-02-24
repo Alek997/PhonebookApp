@@ -1,0 +1,12 @@
+{
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  },
+  "eslint.workingDirectories": [
+    {
+      "directory": "./src",
+      "changeProcessCWD": true
+    }
+  ]
+}
