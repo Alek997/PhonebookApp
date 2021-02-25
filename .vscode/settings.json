@@ -8,5 +8,6 @@
       "directory": "./src",
       "changeProcessCWD": true
     }
-  ]
+  ],
+  "editor.formatOnSave": true
 }

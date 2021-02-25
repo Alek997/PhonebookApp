@@ -1,12 +1,20 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { SafeAreaView, Text, View } from 'react-native'
+import Contacts from 'react-native-contacts'
 
-const ContactsScreen: React.FC<any> = () => {
+interface Props {
+  contact: Contacts.Contact
+}
+
+const ContactScreen: React.FC<Props> = ({ contact }) => {
+  console.log('contact', contact)
   return (
-    <View>
-      <Text>ContactsScreen</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View>
+        <Text>{contact?.displayName}</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 
-export default ContactsScreen
+export default ContactScreen

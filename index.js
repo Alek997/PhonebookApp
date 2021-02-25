@@ -2,20 +2,32 @@
  * @format
  */
 import { Navigation } from 'react-native-navigation'
-import ContactsScreen from './src/screens/ContactScreen'
+import ContactScreen from './src/screens/ContactScreen'
+import ContactsScreen from './src/screens/ContactsScreen'
 
-const screens = {
+export const screens = {
   Contacts: {
     name: 'phonebookApp.Contacts',
-    component: ContactsScreen,
+    component: ContactsScreen
   },
+  Contact: {
+    name: 'phonebookApp.Contact',
+    component: ContactScreen
+  }
 }
 
-//TODO napisi funkciju koja odjednom ovo radi
-Navigation.registerComponent(
-  screens.Contacts.name,
-  () => screens.Contacts.component
-)
+export function registerScreens() {
+  Navigation.registerComponent(
+    screens.Contacts.name,
+    () => screens.Contacts.component
+  )
+  Navigation.registerComponent(
+    screens.Contact.name,
+    () => screens.Contact.component
+  )
+}
+
+registerScreens()
 
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
@@ -25,11 +37,11 @@ Navigation.events().registerAppLaunchedListener(() => {
           {
             component: {
               id: screens.Contacts.name,
-              name: screens.Contacts.name,
-            },
-          },
-        ],
-      },
-    },
+              name: screens.Contacts.name
+            }
+          }
+        ]
+      }
+    }
   })
 })
