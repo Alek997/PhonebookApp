@@ -3,6 +3,7 @@ import { Navigation, LayoutComponent } from 'react-native-navigation'
 import { Provider } from 'react-redux'
 import { Screen, screens } from '../config/naivgation'
 import { store } from '../redux/store'
+import ContactScreen from '../screens/ContactScreen'
 import ContactsScreen from '../screens/ContactsScreen'
 
 export interface NavigationScreenComponent<T = {}>
@@ -28,6 +29,7 @@ const registerComponent = (screen: Screen, Component: any) => {
 
 export const init = () => {
   registerComponent(screens.ContactsScreen, ContactsScreen)
+  registerComponent(screens.ContactScreen, ContactScreen)
 }
 
 export const startApp = () => {

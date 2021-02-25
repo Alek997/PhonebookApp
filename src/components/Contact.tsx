@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { ContactDto } from '../types/domain'
 
 const styles = StyleSheet.create({
   container: {
@@ -40,24 +41,19 @@ const styles = StyleSheet.create({
 
 interface ContactProps {
   onPress(): void
-  name: string
-  phoneNumber: string
+  contact: ContactDto
 }
 
-const Contact: React.FC<ContactProps> = ({
-  onPress,
-  name = '',
-  phoneNumber = ''
-}) => {
+const Contact: React.FC<ContactProps> = ({ onPress, contact }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.containerLetter}>
-          <Text style={styles.textLetter}>{name[0]}</Text>
+          {/* <Text style={styles.textLetter}>{contact?.name[0]}</Text> */}
         </View>
         <View style={styles.containerDetails}>
-          <Text style={styles.textName}>{name}</Text>
-          <Text style={styles.textPhoneNumber}>{phoneNumber}</Text>
+          <Text style={styles.textName}>{contact?.name}</Text>
+          <Text style={styles.textPhoneNumber}>{contact?.phone}</Text>
         </View>
       </View>
     </TouchableOpacity>

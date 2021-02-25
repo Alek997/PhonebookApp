@@ -1,46 +1,70 @@
 import React, { useEffect } from 'react'
-import { SafeAreaView } from 'react-native'
+import { Button, FlatList, SafeAreaView, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavigationScreenComponent } from '../utils/navigationUtils'
-import { fetchContacts } from '../redux/actions'
+import { getContacts, addContact, removeContact } from '../redux/actions'
+import { ContactDto } from '../types/domain'
+import Contact from '../components/Contact'
+import { Navigation } from 'react-native-navigation'
+import { screens } from '../config/naivgation'
 
-// const onContactPress = ({
-//   componentId,
-//   contact
-// }: {
-//   componentId: string
-//   contact: Contacts.Contact
-// }) => {
-//   Navigation.push(componentId, {
-//     component: {
-//       name: screens.Contact.name,
-//       passProps: {
-//         contact: contact
-//       },
-//       options: {
-//         topBar: {
-//           title: {
-//             text: 'Contact'
-//           }
-//         }
-//       }
-//     }
-//   })
-// }
+const onContactPress = ({
+  componentId,
+  contact
+}: {
+  componentId: string
+  contact: ContactDto
+}) => {
+  Navigation.push(componentId, {
+    component: {
+      name: screens.ContactScreen.name,
+      passProps: {
+        contact: contact
+      },
+      options: {
+        topBar: {
+          title: {
+            text: 'Contact'
+          }
+        }
+      }
+    }
+  })
+}
 
 const ContactsScreen: NavigationScreenComponent = props => {
-  const state = useSelector(state => state)
+  const { contacts }: { contacts: ContactDto[] } = useSelector(
+    state => state.contactsReducer
+  )
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   console.log('muuu')
-  //   if (!state.contacts) dispatch(fetchContacts())
-  // }, [dispatch])
-  console.log('state', state)
+  const fetchContacts = () => dispatch(getContacts())
+  const addToContacts = (contact: ContactDto) => dispatch(addContact(contact))
+  const removeFromContacts = (contact: ContactDto) =>
+    dispatch(removeContact(contact))
+
+  useEffect(() => {
+    fetchContacts()
+  }, [])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* <FlatList
+      <Button
+        title="Add"
+        onPress={() =>
+          addToContacts({
+            id: '2',
+            name: 'MUUUU',
+            sex: 'male',
+            code: '11000',
+            country: 'Serbia',
+            phone: '06445757'
+          })
+        }
+      >
+        Add New Contact
+      </Button>
+      <FlatList
         data={contacts}
         refreshing={!contacts}
         renderItem={({ item }) => {
@@ -52,16 +76,15 @@ const ContactsScreen: NavigationScreenComponent = props => {
                   contact: item
                 })
               }}
-              name={item.displayName}
-              phoneNumber={item.phoneNumbers[0]?.number}
+              contact={item}
             />
           )
         }}
-        keyExtractor={item => item.recordID}
+        keyExtractor={item => item.id}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         // ListHeaderComponent={() => <ContactsHeader />}
         // ListEmptyComponent={() => <NoContacts />}
-      /> */}
+      />
     </SafeAreaView>
   )
 }

@@ -9,7 +9,7 @@ export const screens: Record<'ContactsScreen' | 'ContactScreen', Screen> = {
     title: ''
   },
   ContactScreen: {
-    name: 'phonebookApp.ContactsScreen',
+    name: 'phonebookApp.ContactScreen',
     title: ''
   }
 }

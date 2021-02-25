@@ -1,17 +1,20 @@
 import React from 'react'
 import { SafeAreaView, Text, View } from 'react-native'
-import Contacts from 'react-native-contacts'
+import { ContactDto } from '../types/domain'
 
 interface Props {
-  contact: Contacts.Contact
+  contact: ContactDto
 }
 
 const ContactScreen: React.FC<Props> = ({ contact }) => {
-  console.log('contact', contact)
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View>
-        <Text>{contact?.displayName}</Text>
+        <Text>{contact.name}</Text>
+        <Text>{contact.phone}</Text>
+        <Text>{contact.sex}</Text>
+        <Text>{contact.country}</Text>
+        <Text>{contact.code}</Text>
       </View>
     </SafeAreaView>
   )
