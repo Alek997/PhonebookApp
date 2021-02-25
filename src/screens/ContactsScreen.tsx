@@ -1,52 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, SafeAreaView, PermissionsAndroid, View } from 'react-native'
-import Contacts from 'react-native-contacts'
-import { Navigation } from 'react-native-navigation'
-import Contact from '../components/Contact'
-import { screens } from '../../index'
+import React, { useEffect } from 'react'
+import { SafeAreaView } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { NavigationScreenComponent } from '../utils/navigationUtils'
+import { fetchContacts } from '../redux/actions'
 
-const onContactPress = ({
-  componentId,
-  contact
-}: {
-  componentId: string
-  contact: Contacts.Contact
-}) => {
-  Navigation.push(componentId, {
-    component: {
-      name: screens.Contact.name,
-      passProps: {
-        contact: contact
-      },
-      options: {
-        topBar: {
-          title: {
-            text: 'Contact'
-          }
-        }
-      }
-    }
-  })
-}
+// const onContactPress = ({
+//   componentId,
+//   contact
+// }: {
+//   componentId: string
+//   contact: Contacts.Contact
+// }) => {
+//   Navigation.push(componentId, {
+//     component: {
+//       name: screens.Contact.name,
+//       passProps: {
+//         contact: contact
+//       },
+//       options: {
+//         topBar: {
+//           title: {
+//             text: 'Contact'
+//           }
+//         }
+//       }
+//     }
+//   })
+// }
 
-const ContactsScreen: React.FC<any> = () => {
-  const [contacts, setContacts] = useState<Contacts.Contact[]>()
+const ContactsScreen: NavigationScreenComponent = props => {
+  const state = useSelector(state => state)
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-      title: 'Contacts',
-      message: 'This app would like to view your contacts.',
-      buttonPositive: 'Please accept bare mortal'
-    })
-      .then(() => Contacts.getAll())
-      .then(contacts => {
-        setContacts(contacts)
-      })
-  }, [])
+  // useEffect(() => {
+  //   console.log('muuu')
+  //   if (!state.contacts) dispatch(fetchContacts())
+  // }, [dispatch])
+  console.log('state', state)
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FlatList
+      {/* <FlatList
         data={contacts}
         refreshing={!contacts}
         renderItem={({ item }) => {
@@ -54,7 +48,7 @@ const ContactsScreen: React.FC<any> = () => {
             <Contact
               onPress={() => {
                 onContactPress({
-                  componentId: screens.Contacts.name,
+                  componentId: props.componentId,
                   contact: item
                 })
               }}
@@ -67,7 +61,7 @@ const ContactsScreen: React.FC<any> = () => {
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         // ListHeaderComponent={() => <ContactsHeader />}
         // ListEmptyComponent={() => <NoContacts />}
-      />
+      /> */}
     </SafeAreaView>
   )
 }
