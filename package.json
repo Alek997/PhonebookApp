@@ -13,7 +13,9 @@
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-contacts": "^6.0.4",
-    "react-native-navigation": "^7.11.0"
+    "react-native-navigation": "^7.11.0",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -22,14 +24,15 @@
     "@types/jest": "^26.0.20",
     "@types/react": "^17.0.2",
     "@types/react-native": "^0.63.50",
-    "babel-jest": "^25.1.0",
-    "eslint": "^6.5.1",
-    "jest": "^25.1.0",
-    "metro-react-native-babel-preset": "^0.59.0",
+    "@types/react-redux": "^7.1.16",
     "@typescript-eslint/eslint-plugin": "^2.12.0",
     "@typescript-eslint/parser": "^2.12.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^1.19.1",
     "typescript": "^4.2.2"
   },

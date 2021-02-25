@@ -2,8 +2,12 @@
  * @format
  */
 import { Navigation } from 'react-native-navigation'
+import { createStore } from 'redux'
 import ContactScreen from './src/screens/ContactScreen'
 import ContactsScreen from './src/screens/ContactsScreen'
+import contactsReducer from './src/store/contacts.reducer'
+
+const store = createStore(contactsReducer)
 
 export const screens = {
   Contacts: {
