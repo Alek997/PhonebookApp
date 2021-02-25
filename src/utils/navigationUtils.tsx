@@ -3,6 +3,7 @@ import { Navigation, LayoutComponent } from 'react-native-navigation'
 import { Provider } from 'react-redux'
 import { Screen, screens } from '../config/naivgation'
 import { store } from '../redux/store'
+import AddNewContactScreen from '../screens/AddNewContactScreen'
 import ContactScreen from '../screens/ContactScreen'
 import ContactsScreen from '../screens/ContactsScreen'
 
@@ -30,6 +31,7 @@ const registerComponent = (screen: Screen, Component: any) => {
 export const init = () => {
   registerComponent(screens.ContactsScreen, ContactsScreen)
   registerComponent(screens.ContactScreen, ContactScreen)
+  registerComponent(screens.AddNewContactScreen, AddNewContactScreen)
 }
 
 export const startApp = () => {
@@ -55,11 +57,17 @@ export const showModal = (
   options: LayoutComponent['options'] = {}
 ) => {
   Navigation.showModal({
-    component: {
-      id: screen.name,
-      name: screen.name,
-      passProps,
-      options
+    stack: {
+      children: [
+        {
+          component: {
+            id: screen.name,
+            name: screen.name,
+            passProps,
+            options
+          }
+        }
+      ]
     }
   })
 }

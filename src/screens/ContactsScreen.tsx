@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Button, FlatList, SafeAreaView, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavigationScreenComponent } from '../utils/navigationUtils'
-import { getContacts, addContact, removeContact } from '../redux/actions'
+import { NavigationScreenComponent, showModal } from '../utils/navigationUtils'
+import { addContact, removeContact } from '../redux/actions'
 import { ContactDto } from '../types/domain'
 import Contact from '../components/Contact'
 import { Navigation } from 'react-native-navigation'
@@ -36,34 +36,16 @@ const ContactsScreen: NavigationScreenComponent = props => {
   const { contacts }: { contacts: ContactDto[] } = useSelector(
     state => state.contactsReducer
   )
-  const dispatch = useDispatch()
-
-  const fetchContacts = () => dispatch(getContacts())
-  const addToContacts = (contact: ContactDto) => dispatch(addContact(contact))
-  const removeFromContacts = (contact: ContactDto) =>
-    dispatch(removeContact(contact))
-
-  useEffect(() => {
-    fetchContacts()
-  }, [])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Button
         title="Add"
-        onPress={() =>
-          addToContacts({
-            id: '2',
-            name: 'MUUUU',
-            sex: 'male',
-            code: '11000',
-            country: 'Serbia',
-            phone: '06445757'
-          })
-        }
+        onPress={() => showModal(screens.AddNewContactScreen)}
       >
         Add New Contact
       </Button>
+
       <FlatList
         data={contacts}
         refreshing={!contacts}
