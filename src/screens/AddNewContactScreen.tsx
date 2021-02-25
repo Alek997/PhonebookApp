@@ -20,6 +20,7 @@ import { addContact } from '../redux/actions'
 import { ContactDto } from '../types/domain'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
+import { Picker } from '@react-native-picker/picker'
 
 const styles = StyleSheet.create({
   label: {
@@ -118,12 +119,16 @@ const AddNewContactScreen: React.FC<{}> = () => {
                 render={({ onChange, onBlur, value }) => (
                   <>
                     <Text style={styles.label}>Sex</Text>
-                    <TextInput
-                      style={styles.input}
-                      onBlur={onBlur}
-                      onChangeText={value => onChange(value)}
-                      value={value}
-                    />
+
+                    <Picker
+                      selectedValue={value}
+                      style={{ height: 50, width: 150 }}
+                      onValueChange={value => onChange(value)}
+                    >
+                      <Picker.Item label="Male" value="male" />
+                      <Picker.Item label="Female" value="female" />
+                      <Picker.Item label="Other" value="other" />
+                    </Picker>
                   </>
                 )}
                 name="sex"
