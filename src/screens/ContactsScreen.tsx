@@ -75,10 +75,23 @@ const ContactsScreen: NavigationScreenComponent = props => {
         contact
       },
       options: {
+        animations: {
+          push: {
+            sharedElementTransitions: [
+              {
+                fromId: `sourceID`,
+                toId: `destinationID`
+              }
+            ]
+          }
+        },
         topBar: {
           title: {
             text: 'Contact'
           }
+        },
+        layout: {
+          backgroundColor: 'white'
         }
       }
     })
@@ -100,7 +113,14 @@ const ContactsScreen: NavigationScreenComponent = props => {
         onPress={() =>
           pushScreen({
             componentId: props.componentId,
-            screen: screens.AddNewContactScreen
+            screen: screens.AddNewContactScreen,
+            options: {
+              topBar: {
+                title: {
+                  text: 'Create contact'
+                }
+              }
+            }
           })
         }
         underlayColor="white"

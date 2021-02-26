@@ -5,4 +5,5 @@ export interface ContactDto {
   sex: 'male' | 'female' | 'other'
   country: string
   code: string
+  color?: string
 }

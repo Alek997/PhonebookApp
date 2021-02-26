@@ -2,14 +2,6 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { ContactDto } from '../types/domain'
 
-export const getRandomColor = () => {
-  const red = Math.floor(Math.random() * 256)
-  const green = Math.floor(Math.random() * 256)
-  const blue = Math.floor(Math.random() * 256)
-
-  return `rgb(${red}, ${green}, ${blue})`
-}
-
 const styles = StyleSheet.create({
   container: {
     height: 90,
@@ -53,9 +45,10 @@ const Contact: React.FC<ContactProps> = ({ onPress, contact }) => {
     <TouchableOpacity onPress={() => onPress(contact)}>
       <View style={styles.container}>
         <View
+          nativeID={'sourceID'}
           style={{
             ...styles.containerLetter,
-            backgroundColor: getRandomColor()
+            backgroundColor: contact?.color || 'grey'
           }}
         >
           <Text style={styles.textLetter}>{contact?.name[0]}</Text>

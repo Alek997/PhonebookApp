@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import { Controller, useForm } from 'react-hook-form'
 import {
-  Button,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -12,6 +11,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View
 } from 'react-native'
@@ -21,12 +21,16 @@ import { ContactDto } from '../types/domain'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
 import { Picker } from '@react-native-picker/picker'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const styles = StyleSheet.create({
   picker: {
     height: 50,
-    width: 150
+    width: 150,
+    marginBottom: 20,
+    marginLeft: 30,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'black'
   },
   wrapper: {
     flex: 1
@@ -35,12 +39,6 @@ const styles = StyleSheet.create({
     color: 'black',
     margin: 20,
     marginLeft: 0
-  },
-  button: {
-    color: 'white',
-    backgroundColor: 'blue',
-    height: 40,
-    borderRadius: 4
   },
   container: {
     flex: 1,
@@ -51,43 +49,63 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: 'white',
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    height: 40,
-    padding: 10,
+    borderColor: 'black',
+    borderWidth: 1,
+    marginHorizontal: 30,
+    marginBottom: 20,
+    height: 50,
+    paddingLeft: 20,
     borderRadius: 4
   },
   formInput: {
     marginVertical: 40
+  },
+  button: {
+    fontSize: 20,
+    backgroundColor: 'blue',
+    color: 'white',
+    width: 150,
+    paddingVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    alignSelf: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16
   }
 })
 
 type FormData = Omit<ContactDto, 'id'>
 
-const getCountries = async () => {
-  try {
-    const value = await AsyncStorage.getItem('countries')
-    if (value !== null) {
-      return JSON.parse(value)
-    }
-  } catch (error) {
-    // Error retrieving data
-  }
+// const getCountries = async () => {
+//   try {
+//     const value = await AsyncStorage.getItem('countries')
+//     if (value !== null) {
+//       return JSON.parse(value)
+//     }
+//   } catch (error) {
+//     // Error retrieving data
+//   }
+// }
+export const getRandomColor = () => {
+  const red = Math.floor(Math.random() * 256)
+  const green = Math.floor(Math.random() * 256)
+  const blue = Math.floor(Math.random() * 256)
+
+  return `rgb(${red}, ${green}, ${blue})`
 }
 
 const AddNewContactScreen: React.FC<{}> = () => {
   const { control, handleSubmit, errors } = useForm<FormData>()
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    getCountries().then(data => console.log('data', data))
-  }, [])
-
   const addToContacts = (contact: ContactDto) => dispatch(addContact(contact))
 
   const onSubmit = (data: FormData) => {
-    addToContacts({ ...data, id: uuid() })
-    Navigation.dismissModal(screens.AddNewContactScreen.name)
+    addToContacts({ ...data, id: uuid(), color: getRandomColor() })
+    Navigation.popTo(screens.ContactsScreen.name)
   }
 
   return (
@@ -102,15 +120,13 @@ const AddNewContactScreen: React.FC<{}> = () => {
               <Controller
                 control={control}
                 render={({ onChange, onBlur, value }) => (
-                  <>
-                    <Text style={styles.label}>Name</Text>
-                    <TextInput
-                      style={styles.input}
-                      onChangeText={data => onChange(data)}
-                      value={value}
-                      onBlur={onBlur}
-                    />
-                  </>
+                  <TextInput
+                    placeholder="Name"
+                    style={styles.input}
+                    onChangeText={data => onChange(data)}
+                    value={value}
+                    onBlur={onBlur}
+                  />
                 )}
                 name="name"
                 rules={{ required: true }}
@@ -121,15 +137,13 @@ const AddNewContactScreen: React.FC<{}> = () => {
               <Controller
                 control={control}
                 render={({ onChange, onBlur, value }) => (
-                  <>
-                    <Text style={styles.label}>Phone</Text>
-                    <TextInput
-                      style={styles.input}
-                      onBlur={onBlur}
-                      onChangeText={data => onChange(data)}
-                      value={value}
-                    />
-                  </>
+                  <TextInput
+                    style={styles.input}
+                    onBlur={onBlur}
+                    placeholder="Phone"
+                    onChangeText={data => onChange(data)}
+                    value={value}
+                  />
                 )}
                 name="phone"
                 rules={{ required: true }}
@@ -141,8 +155,6 @@ const AddNewContactScreen: React.FC<{}> = () => {
                 control={control}
                 render={({ onChange, value }) => (
                   <>
-                    <Text style={styles.label}>Sex</Text>
-
                     <Picker
                       selectedValue={value}
                       style={styles.picker}
@@ -156,22 +168,20 @@ const AddNewContactScreen: React.FC<{}> = () => {
                 )}
                 name="sex"
                 rules={{ required: true }}
-                defaultValue=""
+                defaultValue="male"
               />
               {errors.sex && <Text>This is required.</Text>}
 
               <Controller
                 control={control}
                 render={({ onChange, onBlur, value }) => (
-                  <>
-                    <Text style={styles.label}>Country</Text>
-                    <TextInput
-                      style={styles.input}
-                      onBlur={onBlur}
-                      onChangeText={data => onChange(data)}
-                      value={value}
-                    />
-                  </>
+                  <TextInput
+                    style={styles.input}
+                    onBlur={onBlur}
+                    onChangeText={data => onChange(data)}
+                    value={value}
+                    placeholder="Country"
+                  />
                 )}
                 name="country"
                 rules={{ required: true }}
@@ -182,15 +192,13 @@ const AddNewContactScreen: React.FC<{}> = () => {
               <Controller
                 control={control}
                 render={({ onChange, onBlur, value }) => (
-                  <>
-                    <Text style={styles.label}>Code</Text>
-                    <TextInput
-                      style={styles.input}
-                      onBlur={onBlur}
-                      onChangeText={data => onChange(data)}
-                      value={value}
-                    />
-                  </>
+                  <TextInput
+                    style={styles.input}
+                    onBlur={onBlur}
+                    onChangeText={data => onChange(data)}
+                    value={value}
+                    placeholder="Code"
+                  />
                 )}
                 name="code"
                 rules={{ required: true }}
@@ -198,7 +206,12 @@ const AddNewContactScreen: React.FC<{}> = () => {
               />
               {errors.code && <Text>This is required.</Text>}
             </View>
-            <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

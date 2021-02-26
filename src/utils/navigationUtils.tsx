@@ -35,6 +35,7 @@ export const startApp = () => {
   Navigation.setRoot({
     root: {
       stack: {
+        id: 'root',
         children: [
           {
             component: {

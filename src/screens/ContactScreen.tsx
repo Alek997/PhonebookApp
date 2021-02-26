@@ -1,13 +1,11 @@
 import React from 'react'
 import {
-  Button,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View
 } from 'react-native'
-import { getRandomColor } from '../components/Contact'
 import { ContactDto } from '../types/domain'
 import { NavigationScreenComponent } from '../utils/navigationUtils'
 
@@ -73,9 +71,10 @@ const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <View
+          nativeID={'destinationID'}
           style={{
             ...styles.letterCircle,
-            backgroundColor: getRandomColor()
+            backgroundColor: contact?.color || 'grey'
           }}
         >
           <Text style={styles.textLetter}>{contact?.name[0]}</Text>
