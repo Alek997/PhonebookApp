@@ -1,5 +1,12 @@
-import React from 'react'
-import { Button, FlatList, SafeAreaView, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import {
+  Button,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  View
+} from 'react-native'
 import { RootStateOrAny, useSelector } from 'react-redux'
 import { NavigationScreenComponent, showModal } from '../utils/navigationUtils'
 import { ContactDto } from '../types/domain'
@@ -38,10 +45,33 @@ const onContactPress = ({
   })
 }
 
+const contains = ({ name, phone }, query) => {
+  if (name.toLowerCase().includes(query) || phone.includes(query)) {
+    return true
+  }
+  return false
+}
+
 const ContactsScreen: NavigationScreenComponent = props => {
   const { contacts }: { contacts: ContactDto[] } = useSelector(
     (state: RootStateOrAny) => state.contactsReducer
   )
+
+  const [filteredData, setFilteredData] = useState<ContactDto[]>([])
+
+  useEffect(() => {
+    console.log('set contacts')
+    setFilteredData(contacts)
+  }, [contacts])
+
+  const handleSearch = text => {
+    console.log(text)
+    const formattedQuery = text.toLowerCase()
+    const filteredContacts = contacts?.filter(contact =>
+      contains({ name: contact.name, phone: contact.phone }, formattedQuery)
+    )
+    setFilteredData(filteredContacts)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,8 +82,29 @@ const ContactsScreen: NavigationScreenComponent = props => {
         Add New Contact
       </Button>
 
+      <View
+        style={{
+          backgroundColor: '#fff',
+          padding: 10,
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <TextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          onChangeText={handleSearch}
+          placeholder="Search"
+          style={{
+            borderRadius: 25,
+            borderColor: '#333',
+            backgroundColor: '#fff'
+          }}
+        />
+      </View>
+
       <FlatList
-        data={contacts}
+        data={filteredData}
         refreshing={!contacts}
         renderItem={({ item }) => {
           return (
@@ -70,7 +121,7 @@ const ContactsScreen: NavigationScreenComponent = props => {
         }}
         keyExtractor={item => item.id}
         ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
-        // ListHeaderComponent={() => <ContactsHeader />}
+        // ListHeaderComponent={renderHeader}
         // ListEmptyComponent={() => <NoContacts />}
       />
     </SafeAreaView>
