@@ -1,49 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import {
-  Button,
   FlatList,
   SafeAreaView,
   StyleSheet,
+  Text,
   TextInput,
+  TouchableHighlight,
   View
 } from 'react-native'
 import { RootStateOrAny, useSelector } from 'react-redux'
-import { NavigationScreenComponent, showModal } from '../utils/navigationUtils'
+import { NavigationScreenComponent, pushScreen } from '../utils/navigationUtils'
 import { ContactDto } from '../types/domain'
 import Contact from '../components/Contact'
-import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  itemSeparator: { height: 10 }
+  itemSeparator: { height: 10 },
+  searchContainer: {
+    marginVertical: 5,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  search: {
+    borderRadius: 5,
+    margin: 10,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    width: '100%',
+    backgroundColor: 'white'
+  },
+  addNew: { color: 'blue', fontSize: 17 },
+  addNewContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: 10
+  }
 })
-
-const onContactPress = ({
-  componentId,
-  contact
-}: {
-  componentId: string
-  contact: ContactDto
-}) => {
-  Navigation.push(componentId, {
-    component: {
-      name: screens.ContactScreen.name,
-      passProps: {
-        contact: contact
-      },
-      options: {
-        topBar: {
-          title: {
-            text: 'Contact'
-          }
-        }
-      }
-    }
-  })
-}
 
 const contains = ({ name, phone }, query) => {
   if (name.toLowerCase().includes(query) || phone.includes(query)) {
@@ -60,12 +56,10 @@ const ContactsScreen: NavigationScreenComponent = props => {
   const [filteredData, setFilteredData] = useState<ContactDto[]>([])
 
   useEffect(() => {
-    console.log('set contacts')
     setFilteredData(contacts)
   }, [contacts])
 
   const handleSearch = text => {
-    console.log(text)
     const formattedQuery = text.toLowerCase()
     const filteredContacts = contacts?.filter(contact =>
       contains({ name: contact.name, phone: contact.phone }, formattedQuery)
@@ -73,56 +67,56 @@ const ContactsScreen: NavigationScreenComponent = props => {
     setFilteredData(filteredContacts)
   }
 
+  const onContactPress = (contact: ContactDto) => {
+    pushScreen({
+      componentId: props.componentId,
+      screen: screens.ContactScreen,
+      passProps: {
+        contact
+      },
+      options: {
+        topBar: {
+          title: {
+            text: 'Contact'
+          }
+        }
+      }
+    })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <Button
-        title="Add"
-        onPress={() => showModal(screens.AddNewContactScreen)}
-      >
-        Add New Contact
-      </Button>
-
-      <View
-        style={{
-          backgroundColor: '#fff',
-          padding: 10,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
+      <View style={styles.searchContainer}>
         <TextInput
           autoCapitalize="none"
           autoCorrect={false}
           onChangeText={handleSearch}
-          placeholder="Search"
-          style={{
-            borderRadius: 25,
-            borderColor: '#333',
-            backgroundColor: '#fff'
-          }}
+          placeholder="Search names & phones"
+          style={styles.search}
         />
       </View>
+
+      <TouchableHighlight
+        onPress={() =>
+          pushScreen({
+            componentId: props.componentId,
+            screen: screens.AddNewContactScreen
+          })
+        }
+        underlayColor="white"
+        style={styles.addNewContainer}
+      >
+        <Text style={styles.addNew}>Create new contact</Text>
+      </TouchableHighlight>
 
       <FlatList
         data={filteredData}
         refreshing={!contacts}
-        renderItem={({ item }) => {
-          return (
-            <Contact
-              onPress={() => {
-                onContactPress({
-                  componentId: props.componentId,
-                  contact: item
-                })
-              }}
-              contact={item}
-            />
-          )
-        }}
+        renderItem={({ item }) => (
+          <Contact onPress={onContactPress} contact={item} />
+        )}
         keyExtractor={item => item.id}
         ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
-        // ListHeaderComponent={renderHeader}
-        // ListEmptyComponent={() => <NoContacts />}
       />
     </SafeAreaView>
   )

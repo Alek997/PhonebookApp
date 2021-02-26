@@ -1,8 +1,9 @@
 import React from 'react'
 import { Navigation, LayoutComponent } from 'react-native-navigation'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 import { Screen, screens } from '../config/naivgation'
-import { store } from '../redux/store'
+import { persistor, store } from '../redux/store'
 
 export interface NavigationScreenComponent<T = {}>
   extends React.FC<
@@ -21,7 +22,9 @@ export const registerComponent = (
     screen.name,
     () => props => (
       <Provider store={store}>
-        <Component {...props} />
+        <PersistGate loading={null} persistor={persistor}>
+          <Component {...props} />
+        </PersistGate>
       </Provider>
     ),
     () => Component
@@ -62,6 +65,26 @@ export const showModal = (
           }
         }
       ]
+    }
+  })
+}
+
+export const pushScreen = ({
+  componentId,
+  screen,
+  passProps = {},
+  options = {}
+}: {
+  componentId: string
+  screen: Screen
+  passProps?: LayoutComponent['passProps']
+  options?: LayoutComponent['options']
+}) => {
+  Navigation.push(componentId, {
+    component: {
+      name: screen.name,
+      passProps,
+      options
     }
   })
 }
