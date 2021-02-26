@@ -1,14 +1,19 @@
 import React from 'react'
-import { SafeAreaView, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ContactDto } from '../types/domain'
+import { NavigationScreenComponent } from '../utils/navigationUtils'
+
+const styles = StyleSheet.create({
+  container: { flex: 1 }
+})
 
 interface Props {
   contact: ContactDto
 }
 
-const ContactScreen: React.FC<Props> = ({ contact }) => {
+const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <View>
         <Text>{contact.name}</Text>
         <Text>{contact.phone}</Text>
