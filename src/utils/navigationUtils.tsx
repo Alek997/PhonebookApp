@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
 import React from 'react'
 import { Navigation, LayoutComponent } from 'react-native-navigation'
 import { Provider } from 'react-redux'
@@ -28,7 +30,20 @@ const registerComponent = (screen: Screen, Component: any) => {
   )
 }
 
+const storeCountriesData = async () => {
+  try {
+    const countries = await axios.get(
+      'https://restcountries.eu/rest/v2/all?fields=name'
+    )
+
+    await AsyncStorage.setItem('countries', JSON.stringify(countries.data))
+  } catch (error) {
+    // Error saving data
+  }
+}
+
 export const init = () => {
+  storeCountriesData()
   registerComponent(screens.ContactsScreen, ContactsScreen)
   registerComponent(screens.ContactScreen, ContactScreen)
   registerComponent(screens.AddNewContactScreen, AddNewContactScreen)

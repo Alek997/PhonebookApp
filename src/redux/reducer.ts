@@ -1,13 +1,13 @@
 import { ContactDto } from '../types/domain'
-import { ADD_CONTACT, REMOVE_CONTACT } from './actions'
+import { Action, ADD_CONTACT, REMOVE_CONTACT } from './actions'
 
 const initialState: { contacts: ContactDto[] } = {
   contacts: []
 }
-function contactsReducer(state = initialState, action: any) {
+function contactsReducer(state = initialState, action: Action) {
   switch (action.type) {
     case ADD_CONTACT:
-      return { contacts: [...state.contacts, action.payload] }
+      return { contacts: [...state.contacts, action.payload] as ContactDto[] }
     case REMOVE_CONTACT:
       return {
         contacts: state.contacts.filter(

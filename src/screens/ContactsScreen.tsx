@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react'
-import { Button, FlatList, SafeAreaView, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { Button, FlatList, SafeAreaView, StyleSheet, View } from 'react-native'
+import { RootStateOrAny, useSelector } from 'react-redux'
 import { NavigationScreenComponent, showModal } from '../utils/navigationUtils'
-import { addContact, removeContact } from '../redux/actions'
 import { ContactDto } from '../types/domain'
 import Contact from '../components/Contact'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  itemSeparator: { height: 10 }
+})
 
 const onContactPress = ({
   componentId,
@@ -34,11 +40,11 @@ const onContactPress = ({
 
 const ContactsScreen: NavigationScreenComponent = props => {
   const { contacts }: { contacts: ContactDto[] } = useSelector(
-    state => state.contactsReducer
+    (state: RootStateOrAny) => state.contactsReducer
   )
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <Button
         title="Add"
         onPress={() => showModal(screens.AddNewContactScreen)}
@@ -63,7 +69,7 @@ const ContactsScreen: NavigationScreenComponent = props => {
           )
         }}
         keyExtractor={item => item.id}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
         // ListHeaderComponent={() => <ContactsHeader />}
         // ListEmptyComponent={() => <NoContacts />}
       />

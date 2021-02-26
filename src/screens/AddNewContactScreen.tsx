@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import { Controller, useForm } from 'react-hook-form'
@@ -21,8 +21,16 @@ import { ContactDto } from '../types/domain'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
 import { Picker } from '@react-native-picker/picker'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const styles = StyleSheet.create({
+  picker: {
+    height: 50,
+    width: 150
+  },
+  wrapper: {
+    flex: 1
+  },
   label: {
     color: 'black',
     margin: 20,
@@ -56,9 +64,24 @@ const styles = StyleSheet.create({
 
 type FormData = Omit<ContactDto, 'id'>
 
+const getCountries = async () => {
+  try {
+    const value = await AsyncStorage.getItem('countries')
+    if (value !== null) {
+      return JSON.parse(value)
+    }
+  } catch (error) {
+    // Error retrieving data
+  }
+}
+
 const AddNewContactScreen: React.FC<{}> = () => {
   const { control, handleSubmit, errors } = useForm<FormData>()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    getCountries().then(data => console.log('data', data))
+  }, [])
 
   const addToContacts = (contact: ContactDto) => dispatch(addContact(contact))
 
@@ -71,7 +94,7 @@ const AddNewContactScreen: React.FC<{}> = () => {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
+        style={styles.wrapper}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView>
@@ -83,7 +106,7 @@ const AddNewContactScreen: React.FC<{}> = () => {
                     <Text style={styles.label}>Name</Text>
                     <TextInput
                       style={styles.input}
-                      onChangeText={value => onChange(value)}
+                      onChangeText={data => onChange(data)}
                       value={value}
                       onBlur={onBlur}
                     />
@@ -103,7 +126,7 @@ const AddNewContactScreen: React.FC<{}> = () => {
                     <TextInput
                       style={styles.input}
                       onBlur={onBlur}
-                      onChangeText={value => onChange(value)}
+                      onChangeText={data => onChange(data)}
                       value={value}
                     />
                   </>
@@ -116,14 +139,14 @@ const AddNewContactScreen: React.FC<{}> = () => {
 
               <Controller
                 control={control}
-                render={({ onChange, onBlur, value }) => (
+                render={({ onChange, value }) => (
                   <>
                     <Text style={styles.label}>Sex</Text>
 
                     <Picker
                       selectedValue={value}
-                      style={{ height: 50, width: 150 }}
-                      onValueChange={value => onChange(value)}
+                      style={styles.picker}
+                      onValueChange={data => onChange(data)}
                     >
                       <Picker.Item label="Male" value="male" />
                       <Picker.Item label="Female" value="female" />
@@ -145,7 +168,7 @@ const AddNewContactScreen: React.FC<{}> = () => {
                     <TextInput
                       style={styles.input}
                       onBlur={onBlur}
-                      onChangeText={value => onChange(value)}
+                      onChangeText={data => onChange(data)}
                       value={value}
                     />
                   </>
@@ -164,7 +187,7 @@ const AddNewContactScreen: React.FC<{}> = () => {
                     <TextInput
                       style={styles.input}
                       onBlur={onBlur}
-                      onChangeText={value => onChange(value)}
+                      onChangeText={data => onChange(data)}
                       value={value}
                     />
                   </>
