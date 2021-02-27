@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import 'react-native-get-random-values'
-import { v4 as uuid } from 'uuid'
 import { Controller, useForm } from 'react-hook-form'
 import RNPickerSelect from 'react-native-picker-select'
 import {
@@ -16,11 +15,7 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native'
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
-import { addContact, getCountries } from '../redux/actions'
 import { ContactDto, Country } from '../types/domain'
-import { Navigation } from 'react-native-navigation'
-import { screens } from '../config/naivgation'
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -82,31 +77,20 @@ const styles = StyleSheet.create({
 
 type FormData = Omit<ContactDto, 'id'>
 
-export const getRandomColor = () => {
-  const red = Math.floor(Math.random() * 256)
-  const green = Math.floor(Math.random() * 256)
-  const blue = Math.floor(Math.random() * 256)
-
-  return `rgb(${red}, ${green}, ${blue})`
+interface Props {
+  initialValue?: ContactDto
+  onSubmit(data: FormData)
+  countries: Country[]
 }
-
-const AddNewContactScreen: React.FC<{}> = () => {
-  const { control, handleSubmit, errors, watch } = useForm<FormData>()
+const ContactForm: React.FC<Props> = ({
+  initialValue = {},
+  onSubmit,
+  countries
+}) => {
+  const { control, handleSubmit, errors, watch } = useForm<FormData>({
+    defaultValues: initialValue
+  })
   const country = watch('country')
-  const dispatch = useDispatch()
-  const { countries }: { countries: Country[] } = useSelector(
-    (state: RootStateOrAny) => state.countriesReducer
-  )
-
-  const onSubmit = (data: FormData) => {
-    console.log('onSubmit')
-    dispatch(addContact({ ...data, id: uuid(), color: getRandomColor() }))
-    Navigation.popTo(screens.ContactsScreen.name)
-  }
-
-  useEffect(() => {
-    dispatch(getCountries())
-  }, [dispatch])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -240,4 +224,4 @@ const AddNewContactScreen: React.FC<{}> = () => {
   )
 }
 
-export default AddNewContactScreen
+export default ContactForm

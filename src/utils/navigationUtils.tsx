@@ -78,10 +78,10 @@ export const pushScreen = ({
   })
 }
 
-export const pushAddNewContact = (componentId: string) =>
+export const pushAddContact = (componentId: string) =>
   pushScreen({
     componentId,
-    screen: screens.AddNewContactScreen,
+    screen: screens.AddContactScreen,
     options: {
       topBar: {
         title: {
@@ -91,6 +91,25 @@ export const pushAddNewContact = (componentId: string) =>
       layout: {
         backgroundColor: 'white'
       }
+    }
+  })
+
+export const pushEditContact = (componentId: string, contact: ContactDto) =>
+  pushScreen({
+    componentId,
+    screen: screens.EditContactScreen,
+    options: {
+      topBar: {
+        title: {
+          text: 'Edit contact'
+        }
+      },
+      layout: {
+        backgroundColor: 'white'
+      }
+    },
+    passProps: {
+      contact
     }
   })
 

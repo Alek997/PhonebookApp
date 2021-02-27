@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableHighlight } from 'react-native'
 import { screens } from '../config/naivgation'
-import { pushAddNewContact } from '../utils/navigationUtils'
+import { pushAddContact } from '../utils/navigationUtils'
 
 const styles = StyleSheet.create({
   addNewContainer: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
 const CreateContactButton = () => (
   <TouchableHighlight
-    onPress={() => pushAddNewContact(screens.ContactsScreen.name)}
+    onPress={() => pushAddContact(screens.ContactsScreen.name)}
     underlayColor="white"
     style={styles.addNewContainer}
   >

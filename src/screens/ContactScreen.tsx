@@ -8,7 +8,10 @@ import {
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { ContactDto } from '../types/domain'
-import { NavigationScreenComponent } from '../utils/navigationUtils'
+import {
+  NavigationScreenComponent,
+  pushEditContact
+} from '../utils/navigationUtils'
 import { removeContact } from '../redux/actions'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
@@ -79,15 +82,13 @@ const styles = StyleSheet.create({
   }
 })
 
-interface Props {
+const ContactScreen: NavigationScreenComponent<{
   contact: ContactDto
-}
-
-const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
+}> = ({ contact, componentId }) => {
   const dispatch = useDispatch()
 
-  const deleteContact = (contact: ContactDto) => {
-    dispatch(removeContact(contact))
+  const onDeleteContact = (item: ContactDto) => {
+    dispatch(removeContact(item))
     Navigation.popTo(screens.ContactsScreen.name)
   }
 
@@ -98,7 +99,7 @@ const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
           nativeID={'destinationID'}
           style={{
             ...styles.letterCircle,
-            backgroundColor: contact?.color || 'grey'
+            backgroundColor: contact?.color
           }}
         >
           <Text style={styles.textLetter}>{contact?.name[0]}</Text>
@@ -113,7 +114,7 @@ const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => {
-            deleteContact(contact)
+            onDeleteContact(contact)
           }}
         >
           <Text style={styles.buttonText}>Delete contact</Text>
@@ -121,7 +122,7 @@ const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => {
-            console.log('edit contact')
+            pushEditContact(componentId, contact)
           }}
         >
           <Text style={styles.buttonText}>Edit contact</Text>

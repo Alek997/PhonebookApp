@@ -4,7 +4,7 @@ export interface Screen {
 }
 
 export const screens: Record<
-  'ContactsScreen' | 'ContactScreen' | 'AddNewContactScreen',
+  'ContactsScreen' | 'ContactScreen' | 'AddContactScreen' | 'EditContactScreen',
   Screen
 > = {
   ContactsScreen: {
@@ -15,8 +15,12 @@ export const screens: Record<
     name: 'phonebookApp.ContactScreen',
     title: ''
   },
-  AddNewContactScreen: {
-    name: 'phonebookApp.AddNewContactScreen',
+  AddContactScreen: {
+    name: 'phonebookApp.AddContactScreen',
+    title: ''
+  },
+  EditContactScreen: {
+    name: 'phonebookApp.EditContactScreen',
     title: ''
   }
 }
