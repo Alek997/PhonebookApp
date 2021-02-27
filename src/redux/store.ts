@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'
 import thunk from 'redux-thunk'
-import contactsReducer from './reducer'
+import { contactsReducer, countriesReducer } from './reducers'
 
 const persistConfig = {
   key: 'root',
@@ -10,7 +10,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  contactsReducer: persistReducer(persistConfig, contactsReducer)
+  contactsReducer: persistReducer(persistConfig, contactsReducer),
+  countriesReducer: persistReducer(persistConfig, countriesReducer)
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))

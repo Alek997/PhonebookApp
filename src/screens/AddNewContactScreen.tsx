@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import { Controller, useForm } from 'react-hook-form'
@@ -16,9 +16,9 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native'
-import { useDispatch } from 'react-redux'
-import { addContact } from '../redux/actions'
-import { ContactDto } from '../types/domain'
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
+import { addContact, getCountries } from '../redux/actions'
+import { ContactDto, CountryDto } from '../types/domain'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
 
@@ -81,16 +81,6 @@ const styles = StyleSheet.create({
 
 type FormData = Omit<ContactDto, 'id'>
 
-// const getCountries = async () => {
-//   try {
-//     const value = await AsyncStorage.getItem('countries')
-//     if (value !== null) {
-//       return JSON.parse(value)
-//     }
-//   } catch (error) {
-//     // Error retrieving data
-//   }
-// }
 export const getRandomColor = () => {
   const red = Math.floor(Math.random() * 256)
   const green = Math.floor(Math.random() * 256)
@@ -102,6 +92,11 @@ export const getRandomColor = () => {
 const AddNewContactScreen: React.FC<{}> = () => {
   const { control, handleSubmit, errors } = useForm<FormData>()
   const dispatch = useDispatch()
+  const { countries }: { countries: CountryDto[] } = useSelector(
+    (state: RootStateOrAny) => state.countriesReducer
+  )
+
+  console.log('countries', countries)
 
   const addToContacts = (contact: ContactDto) => dispatch(addContact(contact))
 
@@ -109,6 +104,10 @@ const AddNewContactScreen: React.FC<{}> = () => {
     addToContacts({ ...data, id: uuid(), color: getRandomColor() })
     Navigation.popTo(screens.ContactsScreen.name)
   }
+
+  useEffect(() => {
+    dispatch(getCountries())
+  }, [dispatch])
 
   return (
     <SafeAreaView style={styles.container}>

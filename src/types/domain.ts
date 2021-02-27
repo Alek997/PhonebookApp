@@ -7,3 +7,8 @@ export interface ContactDto {
   code: string
   color?: string
 }
+
+export interface CountryDto {
+  name: string
+  calingCodes?: string[]
+}
