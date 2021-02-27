@@ -51,6 +51,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20
   },
+  deleteButton: {
+    fontSize: 20,
+    backgroundColor: 'red',
+    color: 'white',
+    width: 150,
+    paddingVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    marginRight: 10
+  },
   buttonText: {
     color: 'white',
     fontSize: 16
@@ -58,7 +69,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     position: 'absolute',
     right: 30,
-    bottom: 30
+    bottom: 30,
+    display: 'flex',
+    flexDirection: 'row'
   }
 })
 
@@ -86,6 +99,14 @@ const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
       <Text style={styles.text}>{contact.country}</Text>
       <Text style={styles.text}>{contact.code}</Text>
       <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => {
+            console.log('delete contact')
+          }}
+        >
+          <Text style={styles.buttonText}>Delete contact</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => {
