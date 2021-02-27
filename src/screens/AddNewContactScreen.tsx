@@ -18,7 +18,7 @@ import {
 } from 'react-native'
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux'
 import { addContact, getCountries } from '../redux/actions'
-import { ContactDto, CountryDto } from '../types/domain'
+import { ContactDto, Country } from '../types/domain'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
 
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: 'black'
+    borderColor: 'black',
+    color: 'black'
   },
 
   input: {
@@ -90,13 +91,12 @@ export const getRandomColor = () => {
 }
 
 const AddNewContactScreen: React.FC<{}> = () => {
-  const { control, handleSubmit, errors } = useForm<FormData>()
+  const { control, handleSubmit, errors, watch } = useForm<FormData>()
+  const country = watch('country')
   const dispatch = useDispatch()
-  const { countries }: { countries: CountryDto[] } = useSelector(
+  const { countries }: { countries: Country[] } = useSelector(
     (state: RootStateOrAny) => state.countriesReducer
   )
-
-  console.log('countries', countries)
 
   const addToContacts = (contact: ContactDto) => dispatch(addContact(contact))
 
@@ -121,24 +121,27 @@ const AddNewContactScreen: React.FC<{}> = () => {
               <Controller
                 control={control}
                 render={({ onChange, onBlur, value }) => (
-                  <TextInput
-                    placeholder="Name"
-                    style={styles.input}
-                    onChangeText={data => onChange(data)}
-                    value={value}
-                    onBlur={onBlur}
-                  />
+                  <>
+                    <TextInput
+                      placeholder="Name"
+                      style={styles.input}
+                      onChangeText={data => onChange(data)}
+                      value={value}
+                      onBlur={onBlur}
+                    />
+                    {errors.name && <Text>This is required.</Text>}
+                  </>
                 )}
                 name="name"
                 rules={{ required: true }}
                 defaultValue=""
               />
-              {errors.name && <Text>This is required.</Text>}
 
               <Controller
                 control={control}
                 render={({ onChange, onBlur, value }) => (
                   <TextInput
+                    keyboardType={'phone-pad'}
                     style={styles.input}
                     onBlur={onBlur}
                     placeholder="Phone"
@@ -157,7 +160,8 @@ const AddNewContactScreen: React.FC<{}> = () => {
                 render={({ onChange, value }) => (
                   <RNPickerSelect
                     style={{
-                      inputIOS: styles.picker
+                      inputIOS: styles.picker,
+                      inputAndroid: styles.picker
                     }}
                     value={value}
                     placeholder={{ label: 'Select sex', value: null }}
@@ -177,13 +181,16 @@ const AddNewContactScreen: React.FC<{}> = () => {
 
               <Controller
                 control={control}
-                render={({ onChange, onBlur, value }) => (
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChangeText={data => onChange(data)}
+                render={({ onChange, value }) => (
+                  <RNPickerSelect
+                    style={{
+                      inputIOS: styles.picker,
+                      inputAndroid: styles.picker
+                    }}
                     value={value}
-                    placeholder="Country"
+                    placeholder={{ label: 'Select country', value: null }}
+                    onValueChange={data => onChange(data)}
+                    items={countries}
                   />
                 )}
                 name="country"
@@ -194,13 +201,25 @@ const AddNewContactScreen: React.FC<{}> = () => {
 
               <Controller
                 control={control}
-                render={({ onChange, onBlur, value }) => (
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChangeText={data => onChange(data)}
+                render={({ onChange, value }) => (
+                  <RNPickerSelect
+                    disabled={!country}
+                    style={{
+                      inputIOS: styles.picker,
+                      inputAndroid: styles.picker
+                    }}
                     value={value}
-                    placeholder="Code"
+                    onValueChange={data => onChange(data)}
+                    items={
+                      country
+                        ? countries
+                            ?.find(item => country === item.value)
+                            .callingCodes.map(code => ({
+                              label: `+${code}`,
+                              value: `+${code}`
+                            }))
+                        : []
+                    }
                   />
                 )}
                 name="code"

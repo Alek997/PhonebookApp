@@ -10,10 +10,12 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  contactsReducer: persistReducer(persistConfig, contactsReducer),
-  countriesReducer: persistReducer(persistConfig, countriesReducer)
+  contactsReducer,
+  countriesReducer
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunk))
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+export const store = createStore(persistedReducer, applyMiddleware(thunk))
 
 export const persistor = persistStore(store)

@@ -1,6 +1,6 @@
 import { Dispatch } from 'react'
 import { fetchCountries } from '../services/countryService'
-import { ContactDto, CountryDto } from '../types/domain'
+import { ContactDto, Country } from '../types/domain'
 
 export const ADD_CONTACT = 'ADD_CONTACT'
 export const REMOVE_CONTACT = 'REMOVE_CONTACT'
@@ -16,7 +16,7 @@ interface RemoveContact {
 }
 interface GetCountries {
   type: typeof GET_COUNTRIES
-  payload?: CountryDto[]
+  payload?: Country[]
 }
 
 export const addContact = (contact: ContactDto) => (
@@ -40,13 +40,22 @@ export const removeContact = (contact: ContactDto) => (
 export const getCountries = () => {
   return async (dispatch, getState) => {
     const state = getState()
-    if (state.countries.value.length === 0) {
-      const countries = await fetchCountries()
-      if (countries) {
-        dispatch({
-          type: GET_COUNTRIES,
-          payload: countries
-        })
+    if (state.countriesReducer.countries.length === 0) {
+      try {
+        const countries = await fetchCountries()
+
+        if (countries) {
+          dispatch({
+            type: GET_COUNTRIES,
+            payload: countries.map(country => ({
+              label: country.name,
+              value: country.name,
+              callingCodes: country.callingCodes
+            }))
+          })
+        }
+      } catch (error) {
+        console.log('error', error)
       }
     }
   }

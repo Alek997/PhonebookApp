@@ -40,32 +40,16 @@ export const startApp = () => {
           {
             component: {
               id: screens.ContactsScreen.name,
-              name: screens.ContactsScreen.name
+              name: screens.ContactsScreen.name,
+              options: {
+                topBar: {
+                  visible: false
+                }
+              }
             }
           }
         ]
       }
-    }
-  })
-}
-
-export const showModal = (
-  screen: Screen,
-  passProps = {},
-  options: LayoutComponent['options'] = {}
-) => {
-  Navigation.showModal({
-    stack: {
-      children: [
-        {
-          component: {
-            id: screen.name,
-            name: screen.name,
-            passProps,
-            options
-          }
-        }
-      ]
     }
   })
 }

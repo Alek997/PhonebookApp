@@ -10,5 +10,11 @@ export interface ContactDto {
 
 export interface CountryDto {
   name: string
-  calingCodes?: string[]
+  callingCodes: string[]
+}
+
+export interface Country {
+  label: string
+  value: string
+  callingCodes: string[]
 }
