@@ -98,10 +98,9 @@ const AddNewContactScreen: React.FC<{}> = () => {
     (state: RootStateOrAny) => state.countriesReducer
   )
 
-  const addToContacts = (contact: ContactDto) => dispatch(addContact(contact))
-
   const onSubmit = (data: FormData) => {
-    addToContacts({ ...data, id: uuid(), color: getRandomColor() })
+    console.log('onSubmit')
+    dispatch(addContact({ ...data, id: uuid(), color: getRandomColor() }))
     Navigation.popTo(screens.ContactsScreen.name)
   }
 

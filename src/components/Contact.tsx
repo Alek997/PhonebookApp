@@ -1,6 +1,8 @@
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { ContactDto } from '../types/domain'
+import { pushContact } from '../utils/navigationUtils'
+import { screens } from '../config/naivgation'
 
 const styles = StyleSheet.create({
   container: {
@@ -36,26 +38,28 @@ const styles = StyleSheet.create({
 })
 
 interface ContactProps {
-  onPress(contact: ContactDto): void
   contact: ContactDto
 }
 
-const Contact: React.FC<ContactProps> = ({ onPress, contact }) => {
+const Contact: React.FC<ContactProps> = ({ contact }) => {
   return (
-    <TouchableOpacity onPress={() => onPress(contact)}>
-      <View style={styles.container}>
-        <View
-          nativeID={'sourceID'}
-          style={{
-            ...styles.containerLetter,
-            backgroundColor: contact?.color || 'grey'
-          }}
-        >
-          <Text style={styles.textLetter}>{contact?.name[0]}</Text>
-        </View>
-        <View style={styles.containerDetails}>
-          <Text style={styles.textName}>{contact?.name}</Text>
-        </View>
+    <TouchableOpacity
+      onPress={() =>
+        pushContact({ componentId: screens.ContactsScreen.name, contact })
+      }
+      style={styles.container}
+    >
+      <View
+        nativeID={'sourceID'}
+        style={{
+          ...styles.containerLetter,
+          backgroundColor: contact?.color
+        }}
+      >
+        <Text style={styles.textLetter}>{contact?.name[0]}</Text>
+      </View>
+      <View style={styles.containerDetails}>
+        <Text style={styles.textName}>{contact?.name}</Text>
       </View>
     </TouchableOpacity>
   )

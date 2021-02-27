@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Screen, screens } from '../config/naivgation'
 import { persistor, store } from '../redux/store'
+import { ContactDto } from '../types/domain'
 
 export interface NavigationScreenComponent<T = {}>
   extends React.FC<
@@ -76,3 +77,57 @@ export const pushScreen = ({
     }
   })
 }
+
+export const pushAddNewContact = (componentId: string) =>
+  pushScreen({
+    componentId,
+    screen: screens.AddNewContactScreen,
+    options: {
+      topBar: {
+        title: {
+          text: 'Create contact'
+        }
+      },
+      layout: {
+        backgroundColor: 'white'
+      }
+    }
+  })
+
+export const pushContact = ({
+  componentId,
+  contact
+}: {
+  componentId: string
+  contact: ContactDto
+}) =>
+  pushScreen({
+    componentId,
+    screen: screens.ContactScreen,
+    passProps: {
+      contact
+    },
+    options: {
+      layout: {
+        backgroundColor: 'white'
+      },
+      animations: {
+        push: {
+          waitForRender: true,
+          enabled: true,
+
+          sharedElementTransitions: [
+            {
+              fromId: `sourceID`,
+              toId: `destinationID`
+            }
+          ]
+        }
+      },
+      topBar: {
+        title: {
+          text: 'Contact'
+        }
+      }
+    }
+  })
