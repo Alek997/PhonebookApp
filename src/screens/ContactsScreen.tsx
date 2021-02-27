@@ -69,7 +69,7 @@ const ContactsScreen: NavigationScreenComponent = props => {
     setFilteredData(filteredContacts)
   }
 
-  const onContactPress = (contact: ContactDto) => {
+  const onContactPress = (contact: ContactDto) =>
     pushScreen({
       componentId: props.componentId,
       screen: screens.ContactScreen,
@@ -77,8 +77,14 @@ const ContactsScreen: NavigationScreenComponent = props => {
         contact
       },
       options: {
+        layout: {
+          backgroundColor: 'white'
+        },
         animations: {
           push: {
+            waitForRender: true,
+            enabled: true,
+
             sharedElementTransitions: [
               {
                 fromId: `sourceID`,
@@ -91,13 +97,9 @@ const ContactsScreen: NavigationScreenComponent = props => {
           title: {
             text: 'Contact'
           }
-        },
-        layout: {
-          backgroundColor: 'white'
         }
       }
     })
-  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -121,6 +123,9 @@ const ContactsScreen: NavigationScreenComponent = props => {
                 title: {
                   text: 'Create contact'
                 }
+              },
+              layout: {
+                backgroundColor: 'white'
               }
             }
           })

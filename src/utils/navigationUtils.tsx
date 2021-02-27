@@ -43,7 +43,10 @@ export const startApp = () => {
               name: screens.ContactsScreen.name,
               options: {
                 topBar: {
-                  visible: false
+                  title: {
+                    text: 'Contacts',
+                    alignment: 'center'
+                  }
                 }
               }
             }
