@@ -2,6 +2,7 @@ import React from 'react'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import { Controller, useForm } from 'react-hook-form'
+import RNPickerSelect from 'react-native-picker-select'
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -20,18 +21,8 @@ import { addContact } from '../redux/actions'
 import { ContactDto } from '../types/domain'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
-import { Picker } from '@react-native-picker/picker'
 
 const styles = StyleSheet.create({
-  picker: {
-    height: 50,
-    width: 150,
-    marginBottom: 20,
-    marginLeft: 30,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: 'black'
-  },
   wrapper: {
     flex: 1
   },
@@ -47,6 +38,17 @@ const styles = StyleSheet.create({
     margin: 8,
     paddingBottom: 10
   },
+  picker: {
+    height: 50,
+    width: 150,
+    paddingLeft: 10,
+    marginHorizontal: 30,
+    marginBottom: 20,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'black'
+  },
+
   input: {
     backgroundColor: 'white',
     borderColor: 'black',
@@ -154,21 +156,23 @@ const AddNewContactScreen: React.FC<{}> = () => {
               <Controller
                 control={control}
                 render={({ onChange, value }) => (
-                  <>
-                    <Picker
-                      selectedValue={value}
-                      style={styles.picker}
-                      onValueChange={data => onChange(data)}
-                    >
-                      <Picker.Item label="Male" value="male" />
-                      <Picker.Item label="Female" value="female" />
-                      <Picker.Item label="Other" value="other" />
-                    </Picker>
-                  </>
+                  <RNPickerSelect
+                    style={{
+                      inputIOS: styles.picker
+                    }}
+                    value={value}
+                    placeholder={{ label: 'Select sex', value: null }}
+                    onValueChange={data => onChange(data)}
+                    items={[
+                      { label: 'Male', value: 'male' },
+                      { label: 'Female', value: 'female' },
+                      { label: 'Other', value: 'other' }
+                    ]}
+                  />
                 )}
                 name="sex"
                 rules={{ required: true }}
-                defaultValue="male"
+                defaultValue=""
               />
               {errors.sex && <Text>This is required.</Text>}
 
@@ -210,7 +214,7 @@ const AddNewContactScreen: React.FC<{}> = () => {
               style={styles.button}
               onPress={handleSubmit(onSubmit)}
             >
-              <Text style={styles.buttonText}>Submit</Text>
+              <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
           </ScrollView>
         </TouchableWithoutFeedback>

@@ -28,9 +28,11 @@ const styles = StyleSheet.create({
   search: {
     borderRadius: 5,
     margin: 10,
+    paddingLeft: 10,
     borderColor: 'gray',
     borderWidth: 0.5,
     width: '100%',
+    minHeight: 50,
     backgroundColor: 'white'
   },
   addNew: { color: 'blue', fontSize: 17 },
