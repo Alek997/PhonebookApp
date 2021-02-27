@@ -6,8 +6,12 @@ import {
   TouchableOpacity,
   View
 } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { ContactDto } from '../types/domain'
 import { NavigationScreenComponent } from '../utils/navigationUtils'
+import { removeContact } from '../redux/actions'
+import { Navigation } from 'react-native-navigation'
+import { screens } from '../config/naivgation'
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
@@ -80,6 +84,13 @@ interface Props {
 }
 
 const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
+  const dispatch = useDispatch()
+
+  const deleteContact = (contact: ContactDto) => {
+    dispatch(removeContact(contact))
+    Navigation.popTo(screens.ContactsScreen.name)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -102,7 +113,7 @@ const ContactScreen: NavigationScreenComponent<Props> = ({ contact }) => {
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => {
-            console.log('delete contact')
+            deleteContact(contact)
           }}
         >
           <Text style={styles.buttonText}>Delete contact</Text>
