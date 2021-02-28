@@ -15,6 +15,7 @@ import {
 import { removeContact } from '../redux/actions'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
+import { Icon } from 'react-native-eva-icons'
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
@@ -79,6 +80,12 @@ const styles = StyleSheet.create({
     bottom: 30,
     display: 'flex',
     flexDirection: 'row'
+  },
+  property: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginLeft: 20,
+    alignItems: 'center'
   }
 })
 
@@ -106,10 +113,22 @@ const ContactScreen: NavigationScreenComponent<{
         </View>
         <Text style={styles.name}>{contact.name}</Text>
       </View>
-      <Text style={styles.text}>{contact.phone}</Text>
-      <Text style={styles.text}>{contact.sex}</Text>
-      <Text style={styles.text}>{contact.country}</Text>
-      <Text style={styles.text}>{contact.code}</Text>
+      <View style={styles.property}>
+        <Icon name="phone-outline" width={23} height={23} fill="grey" />
+        <Text style={styles.text}>{contact.phone}</Text>
+      </View>
+      <View style={styles.property}>
+        <Icon name="plus-square-outline" width={23} height={23} fill="grey" />
+        <Text style={styles.text}>{contact.sex}</Text>
+      </View>
+      <View style={styles.property}>
+        <Icon name="globe-2-outline" width={23} height={23} fill="grey" />
+        <Text style={styles.text}>{contact.country}</Text>
+      </View>
+      <View style={styles.property}>
+        <Icon name="code-outline" width={23} height={23} fill="grey" />
+        <Text style={styles.text}>{contact.code}</Text>
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.deleteButton}
