@@ -1,23 +1,23 @@
 import { StyleSheet, TextInput, View } from 'react-native'
 
 import React from 'react'
+import { Icon } from 'react-native-eva-icons'
 
 const styles = StyleSheet.create({
   searchContainer: {
-    marginVertical: 5,
-    paddingHorizontal: 10,
+    margin: 5,
+    paddingLeft: 20,
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  search: {
+    justifyContent: 'center',
+    flexDirection: 'row',
     borderRadius: 5,
-    margin: 10,
-    paddingLeft: 10,
     borderColor: 'gray',
     borderWidth: 0.5,
-    width: '100%',
-    minHeight: 50,
     backgroundColor: 'white'
+  },
+  search: {
+    minHeight: 50,
+    width: '100%'
   }
 })
 
@@ -26,6 +26,7 @@ interface Props {
 }
 const SearchBar: React.FC<Props> = ({ onSearch }) => (
   <View style={styles.searchContainer}>
+    <Icon name="search-outline" width={20} height={20} fill="grey" />
     <TextInput
       autoCapitalize="none"
       autoCorrect={false}

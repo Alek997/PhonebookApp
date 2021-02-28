@@ -16,48 +16,93 @@ import {
   View
 } from 'react-native'
 import { ContactDto, Country } from '../types/domain'
+import { Icon } from 'react-native-eva-icons'
+
+// const styles = StyleSheet.create({
+//   wrapper: {
+//     flex: 1
+//   },
+//   label: {
+//     color: 'black',
+//     margin: 20,
+//     marginLeft: 0
+//   },
+//   container: {
+//     flex: 1,
+//     justifyContent: 'space-evenly',
+//     margin: 8,
+//     paddingBottom: 10
+//   },
+//   picker: {
+//     height: 50,
+//     width: 150,
+//     paddingLeft: 10,
+//     borderRadius: 4,
+//     borderWidth: 1,
+//     borderColor: 'black',
+//     color: 'black'
+//   },
+
+//   input: {
+//     backgroundColor: 'white',
+//     borderColor: 'black',
+//     borderWidth: 1,
+//     height: 50,
+//     paddingLeft: 20,
+//     borderRadius: 4
+//   },
+//   formInput: {
+//     marginVertical: 40
+//   },
+//   button: {
+//     fontSize: 20,
+//     backgroundColor: 'blue',
+//     color: 'white',
+//     width: 150,
+//     paddingVertical: 10,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     borderRadius: 20,
+//     alignSelf: 'center'
+//   },
+//   buttonText: {
+//     color: 'white',
+//     fontSize: 16
+//   },
+//   fieldContainer: {
+//     marginHorizontal: 30,
+//     marginBottom: 20
+//   },
+//   error: {
+//     color: 'red'
+//   }
+// })
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1
-  },
-  label: {
-    color: 'black',
-    margin: 20,
-    marginLeft: 0
-  },
   container: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    margin: 8,
-    paddingBottom: 10
+    marginHorizontal: 20,
+    marginTop: 20
   },
-  picker: {
-    height: 50,
-    width: 150,
-    paddingLeft: 10,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: 'black',
-    color: 'black'
+  fieldContainer: {
+    marginVertical: 10
   },
-
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
   input: {
+    borderColor: 'grey',
+    borderWidth: 0.5,
     backgroundColor: 'white',
-    borderColor: 'black',
-    borderWidth: 1,
-    height: 50,
-    paddingLeft: 20,
-    borderRadius: 4
-  },
-  formInput: {
-    marginVertical: 40
+    borderRadius: 3,
+    width: '90%',
+    paddingLeft: 10
   },
   button: {
-    fontSize: 20,
     backgroundColor: 'blue',
-    color: 'white',
     width: 150,
+    marginTop: 20,
     paddingVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -68,12 +113,21 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16
   },
-  fieldContainer: {
-    marginHorizontal: 30,
-    marginBottom: 20
+  picker: {
+    height: 50,
+    width: 200,
+    paddingLeft: 10,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'black',
+    color: 'black'
+  },
+  icon: {
+    marginRight: 10
   },
   error: {
-    color: 'red'
+    color: 'red',
+    paddingLeft: 45
   }
 })
 
@@ -95,18 +149,24 @@ const ContactForm: React.FC<Props> = ({
   const country = watch('country')
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.wrapper}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView>
-            <View style={styles.formInput}>
-              <Controller
-                control={control}
-                render={({ onChange, onBlur, value }) => (
-                  <View style={styles.fieldContainer}>
+          <ScrollView style={styles.container}>
+            <Controller
+              control={control}
+              render={({ onChange, onBlur, value }) => (
+                <View style={styles.fieldContainer}>
+                  <View style={styles.inputContainer}>
+                    <Icon
+                      name="person-outline"
+                      width={25}
+                      height={25}
+                      fill="grey"
+                      style={styles.icon}
+                    />
                     <TextInput
                       placeholder="Name"
                       style={styles.input}
@@ -114,20 +174,29 @@ const ContactForm: React.FC<Props> = ({
                       value={value}
                       onBlur={onBlur}
                     />
-                    {errors.name && (
-                      <Text style={styles.error}>Name is required.</Text>
-                    )}
                   </View>
-                )}
-                name="name"
-                rules={{ required: true }}
-                defaultValue=""
-              />
+                  {errors.name && (
+                    <Text style={styles.error}>Name is required.</Text>
+                  )}
+                </View>
+              )}
+              name="name"
+              rules={{ required: true }}
+              defaultValue=""
+            />
 
-              <Controller
-                control={control}
-                render={({ onChange, onBlur, value }) => (
-                  <View style={styles.fieldContainer}>
+            <Controller
+              control={control}
+              render={({ onChange, onBlur, value }) => (
+                <View style={styles.fieldContainer}>
+                  <View style={styles.inputContainer}>
+                    <Icon
+                      name="phone-outline"
+                      width={25}
+                      height={25}
+                      fill="grey"
+                      style={styles.icon}
+                    />
                     <TextInput
                       keyboardType={'phone-pad'}
                       style={styles.input}
@@ -136,20 +205,30 @@ const ContactForm: React.FC<Props> = ({
                       onChangeText={data => onChange(data)}
                       value={value}
                     />
-                    {errors.phone && (
-                      <Text style={styles.error}>Phone is required.</Text>
-                    )}
                   </View>
-                )}
-                name="phone"
-                rules={{ required: true }}
-                defaultValue=""
-              />
 
-              <Controller
-                control={control}
-                render={({ onChange, value }) => (
-                  <View style={styles.fieldContainer}>
+                  {errors.phone && (
+                    <Text style={styles.error}>Phone is required.</Text>
+                  )}
+                </View>
+              )}
+              name="phone"
+              rules={{ required: true }}
+              defaultValue=""
+            />
+
+            <Controller
+              control={control}
+              render={({ onChange, value }) => (
+                <View style={styles.fieldContainer}>
+                  <View style={styles.inputContainer}>
+                    <Icon
+                      name="plus-square-outline"
+                      width={25}
+                      height={25}
+                      fill="grey"
+                      style={styles.icon}
+                    />
                     <RNPickerSelect
                       style={{
                         inputIOS: styles.picker,
@@ -164,20 +243,30 @@ const ContactForm: React.FC<Props> = ({
                         { label: 'Other', value: 'other' }
                       ]}
                     />
-                    {errors.sex && (
-                      <Text style={styles.error}>Sex is required.</Text>
-                    )}
                   </View>
-                )}
-                name="sex"
-                rules={{ required: true }}
-                defaultValue=""
-              />
 
-              <Controller
-                control={control}
-                render={({ onChange, value }) => (
-                  <View style={styles.fieldContainer}>
+                  {errors.sex && (
+                    <Text style={styles.error}>Sex is required.</Text>
+                  )}
+                </View>
+              )}
+              name="sex"
+              rules={{ required: true }}
+              defaultValue=""
+            />
+
+            <Controller
+              control={control}
+              render={({ onChange, value }) => (
+                <View style={styles.fieldContainer}>
+                  <View style={styles.inputContainer}>
+                    <Icon
+                      name="globe-2-outline"
+                      width={25}
+                      height={25}
+                      fill="grey"
+                      style={styles.icon}
+                    />
                     <RNPickerSelect
                       style={{
                         inputIOS: styles.picker,
@@ -188,20 +277,29 @@ const ContactForm: React.FC<Props> = ({
                       onValueChange={data => onChange(data)}
                       items={countries}
                     />
-                    {errors.country && (
-                      <Text style={styles.error}>Country is required.</Text>
-                    )}
                   </View>
-                )}
-                name="country"
-                rules={{ required: true }}
-                defaultValue=""
-              />
+                  {errors.country && (
+                    <Text style={styles.error}>Country is required.</Text>
+                  )}
+                </View>
+              )}
+              name="country"
+              rules={{ required: true }}
+              defaultValue=""
+            />
 
-              <Controller
-                control={control}
-                render={({ onChange, value }) => (
-                  <View style={styles.fieldContainer}>
+            <Controller
+              control={control}
+              render={({ onChange, value }) => (
+                <View style={styles.fieldContainer}>
+                  <View style={styles.inputContainer}>
+                    <Icon
+                      name="code-outline"
+                      width={25}
+                      height={25}
+                      fill="grey"
+                      style={styles.icon}
+                    />
                     <RNPickerSelect
                       disabled={!country}
                       style={{
@@ -222,16 +320,17 @@ const ContactForm: React.FC<Props> = ({
                           : []
                       }
                     />
-                    {errors.code && (
-                      <Text style={styles.error}>Code is required.</Text>
-                    )}
                   </View>
-                )}
-                name="code"
-                rules={{ required: true }}
-                defaultValue=""
-              />
-            </View>
+                  {errors.code && (
+                    <Text style={styles.error}>Code is required.</Text>
+                  )}
+                </View>
+              )}
+              name="code"
+              rules={{ required: true }}
+              defaultValue=""
+            />
+
             <TouchableOpacity
               style={styles.button}
               onPress={handleSubmit(onSubmit)}

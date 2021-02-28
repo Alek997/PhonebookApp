@@ -7,13 +7,27 @@ import {
   REMOVE_CONTACT
 } from './actions'
 
+function compare(a, b) {
+  if (a.name < b.name) {
+    return -1
+  }
+  if (a.name > b.name) {
+    return 1
+  }
+  return 0
+}
+
 const contactsInitState: { contacts: ContactDto[] } = {
   contacts: []
 }
 export function contactsReducer(state = contactsInitState, action: Action) {
   switch (action.type) {
     case ADD_CONTACT:
-      return { contacts: [...state.contacts, action.payload] as ContactDto[] }
+      return {
+        contacts: [...state.contacts, action.payload].sort(
+          compare
+        ) as ContactDto[]
+      }
     case EDIT_CONTACT:
       return {
         contacts: state.contacts.map(contact =>
