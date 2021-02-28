@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-evenly',
-
     margin: 8,
     paddingBottom: 10
   },
@@ -37,8 +36,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: 150,
     paddingLeft: 10,
-    marginHorizontal: 30,
-    marginBottom: 20,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: 'black',
@@ -49,8 +46,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: 'black',
     borderWidth: 1,
-    marginHorizontal: 30,
-    marginBottom: 20,
     height: 50,
     paddingLeft: 20,
     borderRadius: 4
@@ -72,6 +67,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16
+  },
+  fieldContainer: {
+    marginHorizontal: 30,
+    marginBottom: 20
+  },
+  error: {
+    color: 'red'
   }
 })
 
@@ -104,7 +106,7 @@ const ContactForm: React.FC<Props> = ({
               <Controller
                 control={control}
                 render={({ onChange, onBlur, value }) => (
-                  <>
+                  <View style={styles.fieldContainer}>
                     <TextInput
                       placeholder="Name"
                       style={styles.input}
@@ -112,8 +114,10 @@ const ContactForm: React.FC<Props> = ({
                       value={value}
                       onBlur={onBlur}
                     />
-                    {errors.name && <Text>This is required.</Text>}
-                  </>
+                    {errors.name && (
+                      <Text style={styles.error}>Name is required.</Text>
+                    )}
+                  </View>
                 )}
                 name="name"
                 rules={{ required: true }}
@@ -123,93 +127,110 @@ const ContactForm: React.FC<Props> = ({
               <Controller
                 control={control}
                 render={({ onChange, onBlur, value }) => (
-                  <TextInput
-                    keyboardType={'phone-pad'}
-                    style={styles.input}
-                    onBlur={onBlur}
-                    placeholder="Phone"
-                    onChangeText={data => onChange(data)}
-                    value={value}
-                  />
+                  <View style={styles.fieldContainer}>
+                    <TextInput
+                      keyboardType={'phone-pad'}
+                      style={styles.input}
+                      onBlur={onBlur}
+                      placeholder="Phone"
+                      onChangeText={data => onChange(data)}
+                      value={value}
+                    />
+                    {errors.phone && (
+                      <Text style={styles.error}>Phone is required.</Text>
+                    )}
+                  </View>
                 )}
                 name="phone"
                 rules={{ required: true }}
                 defaultValue=""
               />
-              {errors.phone && <Text>This is required.</Text>}
 
               <Controller
                 control={control}
                 render={({ onChange, value }) => (
-                  <RNPickerSelect
-                    style={{
-                      inputIOS: styles.picker,
-                      inputAndroid: styles.picker
-                    }}
-                    value={value}
-                    placeholder={{ label: 'Select sex', value: null }}
-                    onValueChange={data => onChange(data)}
-                    items={[
-                      { label: 'Male', value: 'male' },
-                      { label: 'Female', value: 'female' },
-                      { label: 'Other', value: 'other' }
-                    ]}
-                  />
+                  <View style={styles.fieldContainer}>
+                    <RNPickerSelect
+                      style={{
+                        inputIOS: styles.picker,
+                        inputAndroid: styles.picker
+                      }}
+                      value={value}
+                      placeholder={{ label: 'Select sex', value: null }}
+                      onValueChange={data => onChange(data)}
+                      items={[
+                        { label: 'Male', value: 'male' },
+                        { label: 'Female', value: 'female' },
+                        { label: 'Other', value: 'other' }
+                      ]}
+                    />
+                    {errors.sex && (
+                      <Text style={styles.error}>Sex is required.</Text>
+                    )}
+                  </View>
                 )}
                 name="sex"
                 rules={{ required: true }}
                 defaultValue=""
               />
-              {errors.sex && <Text>This is required.</Text>}
 
               <Controller
                 control={control}
                 render={({ onChange, value }) => (
-                  <RNPickerSelect
-                    style={{
-                      inputIOS: styles.picker,
-                      inputAndroid: styles.picker
-                    }}
-                    value={value}
-                    placeholder={{ label: 'Select country', value: null }}
-                    onValueChange={data => onChange(data)}
-                    items={countries}
-                  />
+                  <View style={styles.fieldContainer}>
+                    <RNPickerSelect
+                      style={{
+                        inputIOS: styles.picker,
+                        inputAndroid: styles.picker
+                      }}
+                      value={value}
+                      placeholder={{ label: 'Select country', value: null }}
+                      onValueChange={data => onChange(data)}
+                      items={countries}
+                    />
+                    {errors.country && (
+                      <Text style={styles.error}>Country is required.</Text>
+                    )}
+                  </View>
                 )}
                 name="country"
                 rules={{ required: true }}
                 defaultValue=""
               />
-              {errors.country && <Text>This is required.</Text>}
 
               <Controller
                 control={control}
                 render={({ onChange, value }) => (
-                  <RNPickerSelect
-                    disabled={!country}
-                    style={{
-                      inputIOS: styles.picker,
-                      inputAndroid: styles.picker
-                    }}
-                    value={value}
-                    onValueChange={data => onChange(data)}
-                    items={
-                      country
-                        ? countries
-                            ?.find(item => country === item.value)
-                            .callingCodes.map(code => ({
-                              label: `+${code}`,
-                              value: `+${code}`
-                            }))
-                        : []
-                    }
-                  />
+                  <View style={styles.fieldContainer}>
+                    <RNPickerSelect
+                      disabled={!country}
+                      style={{
+                        inputIOS: styles.picker,
+                        inputAndroid: styles.picker
+                      }}
+                      value={value}
+                      placeholder={{ label: 'Select code', value: null }}
+                      onValueChange={data => onChange(data)}
+                      items={
+                        country
+                          ? countries
+                              ?.find(item => country === item.value)
+                              .callingCodes.map(code => ({
+                                label: `+${code}`,
+                                value: `+${code}`
+                              }))
+                          : []
+                      }
+                    />
+                    {errors.code && (
+                      <Text style={styles.error}>Code is required.</Text>
+                    )}
+                  </View>
                 )}
                 name="code"
                 rules={{ required: true }}
                 defaultValue=""
               />
-              {errors.code && <Text>This is required.</Text>}
             </View>
             <TouchableOpacity
               style={styles.button}
