@@ -3,6 +3,7 @@ import { FlatList, FlatListProps, StyleSheet, View, Text } from 'react-native'
 import { ContactDto } from '../types/domain'
 import Contact from '../components/Contact'
 import { colors } from '../config/colors'
+import { Icon } from 'react-native-eva-icons'
 
 const styles = StyleSheet.create({
   itemSeparator: { height: 10 },
@@ -22,7 +23,13 @@ const defaultItemSeparator = () => <View style={styles.itemSeparator} />
 const defaultEmptyListComponent = () => {
   return (
     <View style={styles.emptyList}>
-      <Text style={styles.emptyListText}>List is empty</Text>
+      <Icon
+        name="alert-triangle-outline"
+        width={40}
+        height={40}
+        fill={colors.text}
+      />
+      <Text style={styles.emptyListText}>No results</Text>
     </View>
   )
 }

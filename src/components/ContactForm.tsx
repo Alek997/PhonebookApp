@@ -113,7 +113,7 @@ const ContactForm: React.FC<Props> = ({
                     />
                     <TextInput
                       placeholder="Name"
-                      placeholderTextColor={colors.separator}
+                      placeholderTextColor={colors.border}
                       style={styles.input}
                       onChangeText={data => onChange(data)}
                       value={value}
@@ -147,7 +147,7 @@ const ContactForm: React.FC<Props> = ({
                       style={styles.input}
                       onBlur={onBlur}
                       placeholder="Phone"
-                      placeholderTextColor={colors.separator}
+                      placeholderTextColor={colors.border}
                       onChangeText={data => onChange(data)}
                       value={value}
                     />
@@ -180,7 +180,7 @@ const ContactForm: React.FC<Props> = ({
                         inputIOS: styles.picker,
                         inputAndroid: styles.picker,
                         placeholder: {
-                          color: colors.separator
+                          color: colors.border
                         }
                       }}
                       value={value}
@@ -221,7 +221,7 @@ const ContactForm: React.FC<Props> = ({
                         inputIOS: styles.picker,
                         inputAndroid: styles.picker,
                         placeholder: {
-                          color: colors.separator
+                          color: colors.border
                         }
                       }}
                       value={value}
@@ -258,7 +258,7 @@ const ContactForm: React.FC<Props> = ({
                         inputIOS: styles.picker,
                         inputAndroid: styles.picker,
                         placeholder: {
-                          color: colors.separator
+                          color: colors.border
                         }
                       }}
                       value={value}
