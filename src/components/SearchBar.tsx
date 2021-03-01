@@ -39,6 +39,7 @@ const SearchBar: React.FC<Props> = ({ onSearch }) => (
       autoCorrect={false}
       onChangeText={onSearch}
       placeholder="Search names & phones"
+      placeholderTextColor={colors.border}
       style={styles.search}
     />
   </View>
