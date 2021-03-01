@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Alert,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -96,8 +97,23 @@ const ContactScreen: NavigationScreenComponent<{
   const dispatch = useDispatch()
 
   const onDeleteContact = (item: ContactDto) => {
-    dispatch(removeContact(item))
-    Navigation.popTo(screens.ContactsScreen.name)
+    Alert.alert(
+      'Delete this contact?',
+      `${contact.name} will be removed from your contacts`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            dispatch(removeContact(item))
+            Navigation.popTo(screens.ContactsScreen.name)
+          }
+        }
+      ]
+    )
   }
 
   return (
@@ -153,9 +169,7 @@ const ContactScreen: NavigationScreenComponent<{
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={() => {
-            onDeleteContact(contact)
-          }}
+          onPress={() => onDeleteContact(contact)}
         >
           <Text style={styles.buttonText}>Delete contact</Text>
         </TouchableOpacity>
