@@ -38,18 +38,20 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   textLetter: {
-    color: colors.primary,
+    color: colors.light,
     fontSize: 50
   },
   name: {
     position: 'absolute',
     bottom: 10,
     left: 10,
-    fontSize: 30
+    fontSize: 30,
+    color: colors.text
   },
   text: {
     margin: 10,
-    fontSize: 20
+    fontSize: 20,
+    color: colors.text
   },
   editButton: {
     fontSize: 20,
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   buttonText: {
-    color: colors.primary,
+    color: colors.light,
     fontSize: 16
   },
   buttonContainer: {

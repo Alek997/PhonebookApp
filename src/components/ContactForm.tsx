@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 3,
     width: '90%',
-    paddingLeft: 10
+    paddingLeft: 10,
+    color: colors.text
   },
   button: {
     backgroundColor: colors.buttonPrimary,
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   buttonText: {
-    color: colors.primary,
+    color: colors.light,
     fontSize: 16
   },
   picker: {
@@ -112,6 +113,7 @@ const ContactForm: React.FC<Props> = ({
                     />
                     <TextInput
                       placeholder="Name"
+                      placeholderTextColor={colors.separator}
                       style={styles.input}
                       onChangeText={data => onChange(data)}
                       value={value}
@@ -145,6 +147,7 @@ const ContactForm: React.FC<Props> = ({
                       style={styles.input}
                       onBlur={onBlur}
                       placeholder="Phone"
+                      placeholderTextColor={colors.separator}
                       onChangeText={data => onChange(data)}
                       value={value}
                     />
@@ -175,7 +178,10 @@ const ContactForm: React.FC<Props> = ({
                     <RNPickerSelect
                       style={{
                         inputIOS: styles.picker,
-                        inputAndroid: styles.picker
+                        inputAndroid: styles.picker,
+                        placeholder: {
+                          color: colors.separator
+                        }
                       }}
                       value={value}
                       placeholder={{ label: 'Select sex', value: null }}
@@ -213,7 +219,10 @@ const ContactForm: React.FC<Props> = ({
                     <RNPickerSelect
                       style={{
                         inputIOS: styles.picker,
-                        inputAndroid: styles.picker
+                        inputAndroid: styles.picker,
+                        placeholder: {
+                          color: colors.separator
+                        }
                       }}
                       value={value}
                       placeholder={{ label: 'Select country', value: null }}
@@ -247,7 +256,10 @@ const ContactForm: React.FC<Props> = ({
                       disabled={!country}
                       style={{
                         inputIOS: styles.picker,
-                        inputAndroid: styles.picker
+                        inputAndroid: styles.picker,
+                        placeholder: {
+                          color: colors.separator
+                        }
                       }}
                       value={value}
                       placeholder={{ label: 'Select code', value: null }}

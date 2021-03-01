@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
   },
   search: {
     minHeight: 50,
-    width: '100%'
+    width: '100%',
+    color: colors.text
   }
 })
 

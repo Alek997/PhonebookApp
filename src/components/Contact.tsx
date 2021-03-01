@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   textLetter: {
-    color: colors.primary,
+    color: colors.light,
     fontSize: 25
   }
 })
