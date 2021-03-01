@@ -15,14 +15,16 @@ const styles = StyleSheet.create({
     flex: 1
   },
   generateButton: {
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: 30
+    backgroundColor: colors.buttonPrimary,
+    padding: 10,
+    margin: 20,
+    borderRadius: 20
   },
   generateButtonText: {
-    color: colors.link
+    color: colors.light,
+    fontSize: 17
   }
 })
 
@@ -59,7 +61,7 @@ const ContactsScreen: NavigationScreenComponent = () => {
           onPress={() => dispatch(generateContacts())}
           style={styles.generateButton}
         >
-          <Text style={styles.generateButtonText}>Generate 100 contacts</Text>
+          <Text style={styles.generateButtonText}>Generate 50 contacts</Text>
         </TouchableOpacity>
       )}
       <ContactList data={filteredContacts} />
