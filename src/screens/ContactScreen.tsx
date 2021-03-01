@@ -122,7 +122,9 @@ const ContactScreen: NavigationScreenComponent<{
             backgroundColor: contact?.color
           }}
         >
-          <Text style={styles.textLetter}>{contact?.name[0]}</Text>
+          <Text style={styles.textLetter}>
+            {contact?.name[0].toUpperCase()}
+          </Text>
         </View>
         <Text style={styles.name}>{contact.name}</Text>
       </View>

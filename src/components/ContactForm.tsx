@@ -150,6 +150,7 @@ const ContactForm: React.FC<Props> = ({
                       placeholderTextColor={colors.border}
                       onChangeText={data => onChange(data)}
                       value={value}
+                      maxLength={10}
                     />
                   </View>
 

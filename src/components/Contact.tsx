@@ -56,7 +56,7 @@ const Contact: React.FC<ContactProps> = ({ contact }) => {
           backgroundColor: contact?.color
         }}
       >
-        <Text style={styles.textLetter}>{contact?.name[0]}</Text>
+        <Text style={styles.textLetter}>{contact?.name[0].toUpperCase()}</Text>
       </View>
       <View style={styles.containerDetails}>
         <Text style={styles.textName}>{contact?.name}</Text>

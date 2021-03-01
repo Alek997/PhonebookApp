@@ -58,7 +58,7 @@ export const generateContacts = () => {
           countries[Math.floor(Math.random() * countries.length)]
         return {
           id: uuid(),
-          name: generateString(),
+          name: generateString().replace(/[^a-zA-Z]+/g, ''),
           phone: generateString(8),
           sex: genders[Math.floor(Math.random() * genders.length)],
           country: randomCountry.name,
