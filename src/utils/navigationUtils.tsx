@@ -33,6 +33,12 @@ export const registerComponent = (
   )
 }
 
+Navigation.setDefaultOptions({
+  layout: {
+    componentBackgroundColor: colors.primary
+  }
+})
+
 export const startApp = () => {
   Navigation.setRoot({
     root: {

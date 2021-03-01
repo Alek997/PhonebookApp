@@ -27,4 +27,6 @@ export const themes = {
   }
 }
 
-export const colors = themes[Appearance.getColorScheme() ?? 'light']
+export const colorScheme = Appearance.getColorScheme() ?? 'light'
+
+export const colors = themes[colorScheme]

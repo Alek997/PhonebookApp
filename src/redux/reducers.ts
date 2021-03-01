@@ -3,6 +3,7 @@ import {
   Action,
   ADD_CONTACT,
   EDIT_CONTACT,
+  GENERATE_CONTACTS,
   GET_COUNTRIES,
   REMOVE_CONTACT
 } from './actions'
@@ -39,6 +40,10 @@ export function contactsReducer(state = contactsInitState, action: Action) {
         contacts: state.contacts.filter(
           contact => contact.id !== action.payload.id
         )
+      }
+    case GENERATE_CONTACTS:
+      return {
+        contacts: action.payload.sort(compare) as ContactDto[]
       }
     default:
       return state

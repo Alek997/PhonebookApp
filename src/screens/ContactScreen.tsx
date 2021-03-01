@@ -54,21 +54,15 @@ const styles = StyleSheet.create({
     color: colors.text
   },
   editButton: {
-    fontSize: 20,
     backgroundColor: colors.buttonPrimary,
-    color: colors.primary,
-    width: 150,
-    paddingVertical: 10,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20
   },
   deleteButton: {
-    fontSize: 20,
     backgroundColor: colors.buttonDanger,
-    color: colors.primary,
-    width: 150,
-    paddingVertical: 10,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
@@ -173,7 +167,12 @@ const ContactScreen: NavigationScreenComponent<{
           style={styles.deleteButton}
           onPress={() => onDeleteContact(contact)}
         >
-          <Text style={styles.buttonText}>Delete contact</Text>
+          <Icon
+            name="trash-2-outline"
+            width={35}
+            height={35}
+            fill={colors.light}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.editButton}
@@ -181,7 +180,12 @@ const ContactScreen: NavigationScreenComponent<{
             pushEditContact(componentId, contact)
           }}
         >
-          <Text style={styles.buttonText}>Edit contact</Text>
+          <Icon
+            name="edit-2-outline"
+            width={35}
+            height={35}
+            fill={colors.light}
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
