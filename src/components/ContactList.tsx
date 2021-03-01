@@ -27,18 +27,26 @@ const defaultEmptyListComponent = () => {
   )
 }
 
-const ContactList: React.FC<Omit<FlatListProps<ContactDto>, 'renderItem'>> = ({
+const defaultRenderItem: FlatListProps<ContactDto>['renderItem'] = ({
+  item
+}) => <Contact contact={item} />
+
+interface Props extends Omit<FlatListProps<ContactDto>, 'renderItem'> {
+  renderItem?: FlatListProps<ContactDto>['renderItem']
+}
+
+const ContactList: React.FC<Props> = ({
   ItemSeparatorComponent = defaultItemSeparator,
   ListEmptyComponent = defaultEmptyListComponent,
+  renderItem = defaultRenderItem,
   ...props
 }) => {
   return (
     <FlatList
-      renderItem={({ item }) => <Contact contact={item} />}
-      refreshing={!props.data}
       keyExtractor={item => item.id}
       ItemSeparatorComponent={ItemSeparatorComponent}
       ListEmptyComponent={ListEmptyComponent}
+      renderItem={renderItem}
       {...props}
     />
   )

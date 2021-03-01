@@ -25,7 +25,7 @@ const EditContactScreen: NavigationScreenComponent<{
       initialValue={contact}
       onSubmit={data => {
         dispatch(editContact({ ...contact, ...data }))
-        Navigation.popTo(screens.ContactsScreen.name)
+        Navigation.popTo(screens.ContactsScreen)
       }}
       countries={countries}
     />

@@ -24,7 +24,7 @@ const AddNewContactScreen: NavigationScreenComponent = () => {
     <ContactForm
       onSubmit={data => {
         dispatch(addContact({ ...data, id: uuid(), color: getRandomColor() }))
-        Navigation.popTo(screens.ContactsScreen.name)
+        Navigation.popTo(screens.ContactsScreen)
       }}
       countries={countries}
     />

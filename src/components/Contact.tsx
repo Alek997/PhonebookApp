@@ -46,7 +46,7 @@ const Contact: React.FC<ContactProps> = ({ contact }) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        pushContact({ componentId: screens.ContactsScreen.name, contact })
+        pushContact({ componentId: screens.ContactsScreen, contact })
       }
       style={styles.container}
     >

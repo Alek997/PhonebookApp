@@ -3,7 +3,7 @@ import { Navigation, LayoutComponent } from 'react-native-navigation'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { colors } from '../config/colors'
-import { Screen, screens } from '../config/naivgation'
+import { screens } from '../config/naivgation'
 import { persistor, store } from '../redux/store'
 import { ContactDto } from '../types/domain'
 
@@ -17,11 +17,11 @@ export interface NavigationScreenComponent<T = {}>
 }
 
 export const registerComponent = (
-  screen: Screen,
+  screen,
   Component: NavigationScreenComponent
 ) => {
   Navigation.registerComponent(
-    screen.name,
+    screen,
     () => props => (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
@@ -47,8 +47,8 @@ export const startApp = () => {
         children: [
           {
             component: {
-              id: screens.ContactsScreen.name,
-              name: screens.ContactsScreen.name,
+              id: screens.ContactsScreen,
+              name: screens.ContactsScreen,
               options: {
                 topBar: {
                   title: {
@@ -71,14 +71,14 @@ export const pushScreen = ({
   passProps = {},
   options = {}
 }: {
+  screen: string
   componentId: string
-  screen: Screen
   passProps?: LayoutComponent['passProps']
   options?: LayoutComponent['options']
 }) => {
   Navigation.push(componentId, {
     component: {
-      name: screen.name,
+      name: screen,
       passProps,
       options
     }

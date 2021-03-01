@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 
 const CreateContactButton = () => (
   <TouchableOpacity
-    onPress={() => pushAddContact(screens.ContactsScreen.name)}
+    onPress={() => pushAddContact(screens.ContactsScreen)}
     style={styles.container}
   >
     <>

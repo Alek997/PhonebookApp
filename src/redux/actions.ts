@@ -1,4 +1,3 @@
-import { Dispatch } from 'react'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import { fetchCountries } from '../services/countryService'
@@ -33,31 +32,20 @@ interface GenerateContacts {
   payload: ContactDto[]
 }
 
-export const addContact = (contact: ContactDto) => (
-  dispatch: Dispatch<AddContact>
-) => {
-  dispatch({
-    type: ADD_CONTACT,
-    payload: contact
-  })
-}
+export const addContact = (contact: ContactDto) => ({
+  type: ADD_CONTACT,
+  payload: contact
+})
 
-export const editContact = (contact: ContactDto) => (
-  dispatch: Dispatch<EditContact>
-) => {
-  dispatch({
-    type: EDIT_CONTACT,
-    payload: contact
-  })
-}
-export const removeContact = (contact: ContactDto) => (
-  dispatch: Dispatch<RemoveContact>
-) => {
-  dispatch({
-    type: REMOVE_CONTACT,
-    payload: contact
-  })
-}
+export const editContact = (contact: ContactDto) => ({
+  type: EDIT_CONTACT,
+  payload: contact
+})
+
+export const removeContact = (contact: ContactDto) => ({
+  type: REMOVE_CONTACT,
+  payload: contact
+})
 
 export const generateContacts = () => {
   return async (dispatch, getState) => {
@@ -67,7 +55,7 @@ export const generateContacts = () => {
         const countries = await fetchCountries()
         const genders = ['male', 'female', 'other']
 
-        const randomContacts = Array.from({ length: 100 }, () => {
+        const randomContacts = Array.from({ length: 50 }, () => {
           const randomCountry =
             countries[Math.floor(Math.random() * countries.length)]
           return {
@@ -87,6 +75,7 @@ export const generateContacts = () => {
           })
         }
       } catch (error) {
+        //dipatch error
         console.log('error', error)
       }
     }
@@ -99,7 +88,6 @@ export const getCountries = () => {
     if (state.countriesReducer.countries.length === 0) {
       try {
         const countries = await fetchCountries()
-
         if (countries) {
           dispatch({
             type: GET_COUNTRIES,
@@ -111,6 +99,7 @@ export const getCountries = () => {
           })
         }
       } catch (error) {
+        //dipatch error
         console.log('error', error)
       }
     }

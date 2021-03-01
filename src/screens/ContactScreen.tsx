@@ -106,7 +106,7 @@ const ContactScreen: NavigationScreenComponent<{
           text: 'OK',
           onPress: () => {
             dispatch(removeContact(item))
-            Navigation.popTo(screens.ContactsScreen.name)
+            Navigation.popTo(screens.ContactsScreen)
           }
         }
       ]
