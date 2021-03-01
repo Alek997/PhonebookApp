@@ -1,6 +1,4 @@
-# Contacts app
-
-## Project setup
+# Phonebook app
 
 Install node dependencies:
 
