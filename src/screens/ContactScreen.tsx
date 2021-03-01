@@ -117,7 +117,6 @@ const ContactScreen: NavigationScreenComponent<{
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <View
-          nativeID={'destinationID'}
           style={{
             ...styles.letterCircle,
             backgroundColor: contact?.color

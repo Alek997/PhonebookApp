@@ -137,16 +137,6 @@ export const pushContact = ({
       layout: {
         backgroundColor: colors.primary
       },
-      animations: {
-        push: {
-          sharedElementTransitions: [
-            {
-              fromId: `sourceID`,
-              toId: `destinationID`
-            }
-          ]
-        }
-      },
       topBar: {
         title: {
           text: 'Contact'

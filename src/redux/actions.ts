@@ -48,36 +48,31 @@ export const removeContact = (contact: ContactDto) => ({
 })
 
 export const generateContacts = () => {
-  return async (dispatch, getState) => {
-    const state = getState()
-    if (state.countriesReducer.countries.length === 0) {
-      try {
-        const countries = await fetchCountries()
-        const genders = ['male', 'female', 'other']
+  return async dispatch => {
+    try {
+      const countries = await fetchCountries()
+      const genders = ['male', 'female', 'other']
 
-        const randomContacts = Array.from({ length: 50 }, () => {
-          const randomCountry =
-            countries[Math.floor(Math.random() * countries.length)]
-          return {
-            id: uuid(),
-            name: generateString(),
-            phone: generateString(8),
-            sex: genders[Math.floor(Math.random() * genders.length)],
-            country: randomCountry.name,
-            code: randomCountry.callingCodes[0] || '',
-            color: getRandomColor()
-          } as ContactDto
-        })
-        if (countries && randomContacts) {
-          dispatch({
-            type: GENERATE_CONTACTS,
-            payload: randomContacts as ContactDto[]
-          })
-        }
-      } catch (error) {
-        //dipatch error
-        console.log('error', error)
-      }
+      const randomContacts = Array.from({ length: 50 }, () => {
+        const randomCountry =
+          countries[Math.floor(Math.random() * countries.length)]
+        return {
+          id: uuid(),
+          name: generateString(),
+          phone: generateString(8),
+          sex: genders[Math.floor(Math.random() * genders.length)],
+          country: randomCountry.name,
+          code: randomCountry.callingCodes[0] || '',
+          color: getRandomColor()
+        } as ContactDto
+      })
+      dispatch({
+        type: GENERATE_CONTACTS,
+        payload: randomContacts as ContactDto[]
+      })
+    } catch (error) {
+      //dipatch error
+      console.log('error', error)
     }
   }
 }

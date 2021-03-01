@@ -51,7 +51,6 @@ const Contact: React.FC<ContactProps> = ({ contact }) => {
       style={styles.container}
     >
       <View
-        nativeID={'sourceID'}
         style={{
           ...styles.containerLetter,
           backgroundColor: contact?.color
