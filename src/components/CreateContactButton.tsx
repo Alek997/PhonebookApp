@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
+import { colors } from '../config/colors'
 import { screens } from '../config/naivgation'
 import { pushAddContact } from '../utils/navigationUtils'
 
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 10
   },
-  text: { color: 'blue', fontSize: 17, marginLeft: 5 }
+  text: { color: colors.link, fontSize: 17, marginLeft: 5 }
 })
 
 const CreateContactButton = () => (
@@ -21,7 +22,12 @@ const CreateContactButton = () => (
     style={styles.container}
   >
     <>
-      <Icon name="person-add-outline" width={20} height={20} fill="blue" />
+      <Icon
+        name="person-add-outline"
+        width={20}
+        height={20}
+        fill={colors.link}
+      />
       <Text style={styles.text}>Create new contact</Text>
     </>
   </TouchableOpacity>

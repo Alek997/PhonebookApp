@@ -17,6 +17,7 @@ import {
 } from 'react-native'
 import { ContactDto, Country } from '../types/domain'
 import { Icon } from 'react-native-eva-icons'
+import { colors } from '../config/colors'
 
 const styles = StyleSheet.create({
   container: {
@@ -32,16 +33,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   input: {
-    borderColor: 'grey',
+    borderColor: colors.border,
     borderWidth: 0.5,
-    backgroundColor: 'white',
+    backgroundColor: colors.primary,
     height: 50,
     borderRadius: 3,
     width: '90%',
     paddingLeft: 10
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: colors.buttonPrimary,
     width: 150,
     marginTop: 20,
     paddingVertical: 10,
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   buttonText: {
-    color: 'white',
+    color: colors.primary,
     fontSize: 16
   },
   picker: {
@@ -60,14 +61,14 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: 'grey',
-    color: 'black'
+    borderColor: colors.border,
+    color: colors.text
   },
   icon: {
     marginRight: 10
   },
   error: {
-    color: 'red',
+    color: colors.error,
     paddingLeft: 45
   }
 })
@@ -106,7 +107,7 @@ const ContactForm: React.FC<Props> = ({
                       name="person-outline"
                       width={25}
                       height={25}
-                      fill="grey"
+                      fill={colors.iconDefault}
                       style={styles.icon}
                     />
                     <TextInput
@@ -136,7 +137,7 @@ const ContactForm: React.FC<Props> = ({
                       name="phone-outline"
                       width={25}
                       height={25}
-                      fill="grey"
+                      fill={colors.iconDefault}
                       style={styles.icon}
                     />
                     <TextInput
@@ -168,7 +169,7 @@ const ContactForm: React.FC<Props> = ({
                       name="plus-square-outline"
                       width={25}
                       height={25}
-                      fill="grey"
+                      fill={colors.iconDefault}
                       style={styles.icon}
                     />
                     <RNPickerSelect
@@ -206,7 +207,7 @@ const ContactForm: React.FC<Props> = ({
                       name="globe-2-outline"
                       width={25}
                       height={25}
-                      fill="grey"
+                      fill={colors.iconDefault}
                       style={styles.icon}
                     />
                     <RNPickerSelect
@@ -239,7 +240,7 @@ const ContactForm: React.FC<Props> = ({
                       name="code-outline"
                       width={25}
                       height={25}
-                      fill="grey"
+                      fill={colors.iconDefault}
                       style={styles.icon}
                     />
                     <RNPickerSelect

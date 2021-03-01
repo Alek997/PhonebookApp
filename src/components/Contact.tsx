@@ -3,6 +3,7 @@ import React from 'react'
 import { ContactDto } from '../types/domain'
 import { pushContact } from '../utils/navigationUtils'
 import { screens } from '../config/naivgation'
+import { colors } from '../config/colors'
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(52, 52, 52, 0.1)'
+    borderBottomColor: colors.separator
   },
   containerDetails: {
     flex: 1,
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
   },
   textName: {
     fontSize: 16,
-    color: 'black'
+    color: colors.text
   },
   containerLetter: {
     width: 46,
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   textLetter: {
-    color: 'white',
+    color: colors.primary,
     fontSize: 25
   }
 })

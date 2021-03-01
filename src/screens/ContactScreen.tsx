@@ -16,6 +16,7 @@ import { removeContact } from '../redux/actions'
 import { Navigation } from 'react-native-navigation'
 import { screens } from '../config/naivgation'
 import { Icon } from 'react-native-eva-icons'
+import { colors } from '../config/colors'
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 250,
-    borderBottomColor: 'grey',
+    borderBottomColor: colors.border,
     borderBottomWidth: 1,
     position: 'relative'
   },
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   textLetter: {
-    color: 'white',
+    color: colors.primary,
     fontSize: 50
   },
   name: {
@@ -51,8 +52,8 @@ const styles = StyleSheet.create({
   },
   editButton: {
     fontSize: 20,
-    backgroundColor: 'blue',
-    color: 'white',
+    backgroundColor: colors.buttonPrimary,
+    color: colors.primary,
     width: 150,
     paddingVertical: 10,
     justifyContent: 'center',
@@ -61,8 +62,8 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     fontSize: 20,
-    backgroundColor: 'red',
-    color: 'white',
+    backgroundColor: colors.buttonDanger,
+    color: colors.primary,
     width: 150,
     paddingVertical: 10,
     justifyContent: 'center',
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   buttonText: {
-    color: 'white',
+    color: colors.primary,
     fontSize: 16
   },
   buttonContainer: {
@@ -114,19 +115,39 @@ const ContactScreen: NavigationScreenComponent<{
         <Text style={styles.name}>{contact.name}</Text>
       </View>
       <View style={styles.property}>
-        <Icon name="phone-outline" width={23} height={23} fill="grey" />
+        <Icon
+          name="phone-outline"
+          width={23}
+          height={23}
+          fill={colors.iconDefault}
+        />
         <Text style={styles.text}>{contact.phone}</Text>
       </View>
       <View style={styles.property}>
-        <Icon name="plus-square-outline" width={23} height={23} fill="grey" />
+        <Icon
+          name="plus-square-outline"
+          width={23}
+          height={23}
+          fill={colors.iconDefault}
+        />
         <Text style={styles.text}>{contact.sex}</Text>
       </View>
       <View style={styles.property}>
-        <Icon name="globe-2-outline" width={23} height={23} fill="grey" />
+        <Icon
+          name="globe-2-outline"
+          width={23}
+          height={23}
+          fill={colors.iconDefault}
+        />
         <Text style={styles.text}>{contact.country}</Text>
       </View>
       <View style={styles.property}>
-        <Icon name="code-outline" width={23} height={23} fill="grey" />
+        <Icon
+          name="code-outline"
+          width={23}
+          height={23}
+          fill={colors.iconDefault}
+        />
         <Text style={styles.text}>{contact.code}</Text>
       </View>
       <View style={styles.buttonContainer}>

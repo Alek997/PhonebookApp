@@ -2,6 +2,7 @@ import React from 'react'
 import { Navigation, LayoutComponent } from 'react-native-navigation'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import { colors } from '../config/colors'
 import { Screen, screens } from '../config/naivgation'
 import { persistor, store } from '../redux/store'
 import { ContactDto } from '../types/domain'
@@ -89,7 +90,7 @@ export const pushAddContact = (componentId: string) =>
         }
       },
       layout: {
-        backgroundColor: 'white'
+        backgroundColor: colors.primary
       }
     }
   })
@@ -105,7 +106,7 @@ export const pushEditContact = (componentId: string, contact: ContactDto) =>
         }
       },
       layout: {
-        backgroundColor: 'white'
+        backgroundColor: colors.primary
       }
     },
     passProps: {
@@ -128,7 +129,7 @@ export const pushContact = ({
     },
     options: {
       layout: {
-        backgroundColor: 'white'
+        backgroundColor: colors.primary
       },
       animations: {
         push: {
