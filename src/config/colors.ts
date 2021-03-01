@@ -23,7 +23,7 @@ export const themes = {
     buttonDanger: 'red',
     text: 'white',
     error: 'red',
-    light: 'white'
+    light: 'lightgray'
   }
 }
 

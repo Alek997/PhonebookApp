@@ -33,8 +33,6 @@ const ContactsScreen: NavigationScreenComponent = () => {
 
   const dispatch = useDispatch()
 
-  console.log('contacts', contacts.length)
-
   const [filteredContacts, setFilteredContacts] = useState(contacts)
 
   useEffect(() => {

@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20
+    borderRadius: 20,
+    color: colors.light
   },
   deleteButton: {
     backgroundColor: colors.buttonDanger,

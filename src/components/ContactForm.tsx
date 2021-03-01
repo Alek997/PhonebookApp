@@ -227,7 +227,7 @@ const ContactForm: React.FC<Props> = ({
                       value={value}
                       placeholder={{ label: 'Select country', value: null }}
                       onValueChange={data => onChange(data)}
-                      items={countries}
+                      items={countries ?? []}
                     />
                   </View>
                   {errors.country && (
@@ -265,12 +265,12 @@ const ContactForm: React.FC<Props> = ({
                       placeholder={{ label: 'Select code', value: null }}
                       onValueChange={data => onChange(data)}
                       items={
-                        country
+                        country && countries.length !== 0
                           ? countries
-                              ?.find(item => country === item.value)
-                              .callingCodes.map(code => ({
+                              .find(item => country === item.value)
+                              ?.callingCodes.map(code => ({
                                 label: `+${code}`,
-                                value: `+${code}`
+                                value: code
                               }))
                           : []
                       }

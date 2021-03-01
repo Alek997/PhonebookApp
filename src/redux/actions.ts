@@ -3,6 +3,8 @@ import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import { fetchCountries } from '../services/countryService'
 import { ContactDto, Country } from '../types/domain'
+import { getRandomColor } from '../utils/colorUtils'
+import { generateString } from '../utils/generateString'
 
 export const ADD_CONTACT = 'ADD_CONTACT'
 export const EDIT_CONTACT = 'EDIT_CONTACT'
@@ -57,11 +59,6 @@ export const removeContact = (contact: ContactDto) => (
   })
 }
 
-export const generateString = (radix = 20) =>
-  Math.random()
-    .toString(radix)
-    .substr(2, 7)
-
 export const generateContacts = () => {
   return async (dispatch, getState) => {
     const state = getState()
@@ -76,16 +73,17 @@ export const generateContacts = () => {
           return {
             id: uuid(),
             name: generateString(),
-            phone: generateString(10),
+            phone: generateString(8),
             sex: genders[Math.floor(Math.random() * genders.length)],
             country: randomCountry.name,
-            code: randomCountry.callingCodes[0] || ''
-          }
+            code: randomCountry.callingCodes[0] || '',
+            color: getRandomColor()
+          } as ContactDto
         })
         if (countries && randomContacts) {
           dispatch({
             type: GENERATE_CONTACTS,
-            payload: randomContacts
+            payload: randomContacts as ContactDto[]
           })
         }
       } catch (error) {
