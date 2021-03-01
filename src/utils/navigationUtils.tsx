@@ -132,9 +132,6 @@ export const pushContact = ({
       },
       animations: {
         push: {
-          waitForRender: true,
-          enabled: true,
-
           sharedElementTransitions: [
             {
               fromId: `sourceID`,

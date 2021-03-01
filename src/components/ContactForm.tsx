@@ -18,66 +18,6 @@ import {
 import { ContactDto, Country } from '../types/domain'
 import { Icon } from 'react-native-eva-icons'
 
-// const styles = StyleSheet.create({
-//   wrapper: {
-//     flex: 1
-//   },
-//   label: {
-//     color: 'black',
-//     margin: 20,
-//     marginLeft: 0
-//   },
-//   container: {
-//     flex: 1,
-//     justifyContent: 'space-evenly',
-//     margin: 8,
-//     paddingBottom: 10
-//   },
-//   picker: {
-//     height: 50,
-//     width: 150,
-//     paddingLeft: 10,
-//     borderRadius: 4,
-//     borderWidth: 1,
-//     borderColor: 'black',
-//     color: 'black'
-//   },
-
-//   input: {
-//     backgroundColor: 'white',
-//     borderColor: 'black',
-//     borderWidth: 1,
-//     height: 50,
-//     paddingLeft: 20,
-//     borderRadius: 4
-//   },
-//   formInput: {
-//     marginVertical: 40
-//   },
-//   button: {
-//     fontSize: 20,
-//     backgroundColor: 'blue',
-//     color: 'white',
-//     width: 150,
-//     paddingVertical: 10,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     borderRadius: 20,
-//     alignSelf: 'center'
-//   },
-//   buttonText: {
-//     color: 'white',
-//     fontSize: 16
-//   },
-//   fieldContainer: {
-//     marginHorizontal: 30,
-//     marginBottom: 20
-//   },
-//   error: {
-//     color: 'red'
-//   }
-// })
-
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
@@ -138,6 +78,7 @@ interface Props {
   onSubmit(data: FormData)
   countries: Country[]
 }
+
 const ContactForm: React.FC<Props> = ({
   initialValue = {},
   onSubmit,
@@ -208,7 +149,7 @@ const ContactForm: React.FC<Props> = ({
                   </View>
 
                   {errors.phone && (
-                    <Text style={styles.error}>Phone is required.</Text>
+                    <Text style={styles.error}>Phone is required. </Text>
                   )}
                 </View>
               )}
