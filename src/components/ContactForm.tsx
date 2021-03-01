@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 0.5,
     backgroundColor: 'white',
+    height: 50,
     borderRadius: 3,
     width: '90%',
     paddingLeft: 10
@@ -58,8 +59,8 @@ const styles = StyleSheet.create({
     width: 200,
     paddingLeft: 10,
     borderRadius: 4,
-    borderWidth: 1,
-    borderColor: 'black',
+    borderWidth: 0.5,
+    borderColor: 'grey',
     color: 'black'
   },
   icon: {

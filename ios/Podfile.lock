@@ -185,8 +185,6 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-contacts (6.0.4):
-    - React-Core
   - react-native-get-random-values (1.6.0):
     - React-Core
   - React-RCTActionSheet (0.63.4):
@@ -262,6 +260,8 @@ PODS:
     - React-Core
   - RNCPicker (1.9.11):
     - React-Core
+  - RNSVG (12.1.0):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -282,7 +282,6 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-contacts (from `../node_modules/react-native-contacts`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -297,6 +296,7 @@ DEPENDENCIES:
   - ReactNativeNavigation (from `../node_modules/react-native-navigation`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -334,8 +334,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-contacts:
-    :path: "../node_modules/react-native-contacts"
   react-native-get-random-values:
     :path: "../node_modules/react-native-get-random-values"
   React-RCTActionSheet:
@@ -364,6 +362,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCPicker:
     :path: "../node_modules/@react-native-picker/picker"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -384,7 +384,6 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-contacts: f97ea51a576325eade1c1e6a9e3be224ccbd466d
   react-native-get-random-values: f0fc24a5887a3341589515a86282a574407b59e4
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
@@ -399,6 +398,7 @@ SPEC CHECKSUMS:
   ReactNativeNavigation: 16d97374852c2e23f6d6b5e4ff9cd616fb037f02
   RNCAsyncStorage: 1ab3f6ec0bc2c676dad4a00471d4c9d1a2cf68a2
   RNCPicker: 6780c753e9e674065db90d9c965920516402579d
+  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
 PODFILE CHECKSUM: d53b7caa8b3c79e1fab1470a41fa6070159cd9bf
